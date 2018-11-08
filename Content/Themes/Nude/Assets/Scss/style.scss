@@ -1,0 +1,612 @@
+/*!
+ * Nude, the simple Phost theme.
+ * (c) 2018, Daniel James
+ */
+
+* {
+
+	box-sizing: border-box;
+
+}
+
+html {
+
+	background-color: #fff;
+	min-height: 100%;
+	font-size: 100%;
+
+}
+
+body {
+
+	background-color: #fff;
+	min-height: 100vh;
+	margin: 0;
+	color: #444;
+	font-size: 1.2rem;
+	font-weight: 400;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	line-height: 1.5rem;
+
+}
+
+::selection {
+
+	background-color: lighten(#0083ef, 25%);
+	color: #fff;
+
+}
+
+p {
+
+	width: 100%;
+	margin: 0 0 20px;
+	display: block;
+
+}
+
+ul,
+ol {
+
+	margin: 0 0 20px;
+	padding: 0 0 0 30px;
+	list-style: decimal;
+	list-style-position: outside;
+
+	li {
+
+		margin: 0;
+		padding: 0;
+
+		&:only-of-type,
+		&:last-of-type {
+
+			margin: 0;
+
+		}
+
+	}
+
+}
+
+ul {
+
+	list-style: disc;
+
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+
+	width: 100%;
+	margin: 0 0 20px;
+	display: block;
+	font-weight: 400;
+
+}
+
+h1, .h1 {
+
+	font-size: 2.8rem;
+	line-height: 3rem;
+
+}
+
+h2, .h2 {
+
+	font-size: 2.4rem;
+	line-height: 2.6rem;
+
+}
+
+h3, .h3 {
+
+	font-size: 2rem;
+	line-height: 2.2rem;
+
+}
+
+h4, .h4 {
+
+	font-size: 1.6rem;
+	line-height: 1.8rem;
+
+}
+
+h5, .h5 {
+
+	font-size: 1.4rem;
+	line-height: 1.6rem;
+	text-transform: uppercase;
+
+}
+
+h6, .h6 {
+
+	font-size: 1rem;
+	line-height: 1.2rem;
+	text-transform: uppercase;
+
+}
+
+hr {
+
+	background-color: #aaa;
+	border: none;
+	width: 100%;
+	height: 1px;
+	margin: 20px 0;
+	display: block;
+
+}
+
+code {
+
+	background-color: #eee;
+	width: auto;
+	padding: 2px 6px;
+	display: inline;
+	border-radius: 3px;
+	color: #0083ef;
+	font-family: monospace;
+	box-decoration-break: clone;
+
+}
+
+pre {
+
+	code {
+
+		width: 100%;
+		padding: 6px 12px;
+		display: block;
+		overflow-x: auto;
+
+	}
+
+}
+
+.text {
+
+	&--left {
+
+		text-align: left;
+
+	}
+
+	&--center {
+
+		text-align: center;
+
+	}
+
+	&--right {
+
+		text-align: right;
+
+	}
+
+}
+
+strong,
+.b {
+
+	font-weight: 700;
+
+}
+
+em,
+.i {
+
+	font-style: italic;
+
+}
+
+.s {
+
+	font-style: line-through;
+
+}
+
+.u {
+
+	text-decoration: underline;
+
+}
+
+img {
+
+	width: auto;
+	max-width: 100%;
+	border-radius: 10px;
+
+}
+
+a {
+
+	color: #555;
+	text-decoration: underline;
+	cursor: pointer;
+	transition: ease-in-out all 0.25s;
+
+	&:hover {
+
+		color: #0083ef;
+		text-decoration: none;
+
+	}
+
+	&:focus {
+
+		outline: none;
+		box-shadow: 0 0 0 3px lighten( #0083ef, 25% );
+
+	}
+
+}
+
+.container {
+
+	width: 100%;
+	max-width: 1024px;
+	margin: 0 auto;
+	padding: 0 20px;
+	display: block;
+
+}
+
+.header {
+
+	width: 100%;
+	padding: 40px 0 0;
+	display: block;
+
+	&__inner {
+
+		border-bottom: 2px solid #eee;
+		width: 100%;
+		padding: 0 0 10px;
+		display: block;
+
+	}
+
+	&__logo {
+
+		width: auto;
+		margin: 0;
+		display: inline-block;
+		color: #555;
+		font-size: 1.4rem;
+		font-weight: 400;
+		letter-spacing: -1px;
+		text-decoration: none;
+
+		&:hover {
+
+			color: #0083ef;
+
+		}
+
+	}
+
+	&__toggle {
+
+		width: auto;
+		margin: 20px 0 10px;
+		display: none;
+
+		@media screen and ( max-width: 768px ) {
+
+			display: block;
+
+		}
+
+	}
+
+	&__menu {
+
+		width: 100%;
+		margin: 40px 0 10px;
+
+		@media screen and ( min-width: 769px ) {
+
+			display: block !important;
+
+		}
+
+		@media screen and ( max-width: 768px ) {
+
+			margin: 10px 0;
+			display: none;
+
+		}
+
+		ul {
+
+			margin: 0;
+			padding: 0;
+			display: inline-block;
+
+			li {
+
+				width: auto;
+				margin: 0 40px 0 0;
+				float: left;
+				display: inline-block;
+
+				@media screen and ( max-width: 768px ) {
+
+					width: 100%;
+					margin: 0 0 4px;
+					display: block;
+
+				}
+
+			}
+
+		}
+
+		a {
+
+			padding: 0;
+			float: left;
+			color: #555;
+			font-size: 1.1rem;
+			font-weight: 300;
+			letter-spacing: 1px;
+
+			&:hover {
+
+				color: #0083ef;
+
+			}
+
+		}
+
+	}
+
+}
+
+.content {
+
+	width: 100%;
+	padding: 40px 0;
+	display: block;
+
+}
+
+.post {
+
+	width: 100%;
+	display: block;
+
+	&-list {
+
+		margin: 40px 0 0;
+
+		ul {
+
+			width: 100%;
+			max-width: 640px;
+			padding: 0;
+			display: flex;
+			flex-wrap: wrap;
+
+			li {
+
+				border-bottom: 2px solid #eee;
+				width: 100%;
+				margin: 0 0 40px;
+				padding: 0 0 20px;
+				display: block;
+
+				&:only-of-type,
+				&:last-of-type {
+
+					border-bottom: none;
+					margin: 0;
+					padding: 0;
+
+				}
+
+			}
+
+		}
+
+		.post {
+
+			&__heading,
+			&__timestamp {
+
+				margin: 0 0 20px;
+				display: block;
+
+			}
+
+			&__content {
+
+				border: none;
+				margin: 0;
+				padding: 0;
+
+			}
+
+		}
+
+	}
+
+	&__heading,
+	&__author,
+	&__time,
+	&__content {
+
+		width: 100%;
+		margin: 0;
+		display: block;
+
+	}
+
+	&__heading {
+
+		margin: 0 0 20px;
+
+	}
+
+	&__author,
+	&__timestamp {
+
+		color: #555;
+		font-size: 0.9rem;
+
+	}
+
+	&__content {
+
+		border-top: 2px solid #eee;
+		width: 100%;
+		margin: 40px 0 0;
+		padding: 60px 0 0;
+		display: block;
+
+	}
+
+}
+
+.pagination {
+
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	position: relative;
+
+	&--above,
+	&--below {
+
+		&::before,
+		&::after {
+
+			background-color: #eee;
+			width: 50px;
+			height: 3px;
+			display: none;
+			position: absolute;
+			top: auto;
+			bottom: auto;
+			content: '';
+
+		}
+
+	}
+
+	&--above {
+
+		margin: 0 0 50px;
+		padding: 0 0 50px;
+
+		&::after {
+
+			bottom: 0;
+			display: block;
+
+		}
+
+	}
+
+	&--below {
+
+		margin: 50px 0 0;
+		padding: 50px 0 0;
+
+		&::before {
+
+			top: 0;
+			display: block;
+
+		}
+
+	}
+
+	&__item {
+
+		width: auto;
+		margin: 0;
+		display: inline-block;
+
+	}
+
+}
+
+.footer {
+
+	width: 100%;
+	display: block;
+
+	&__inner {
+
+		margin: 25px 0 0;
+		padding: 25px 0 80px;
+		position: relative;
+
+		&::before {
+
+			background-color: #eee;
+			width: 50px;
+			height: 3px;
+			display: block;
+			position: absolute;
+			top: 0;
+			content: '';
+
+		}
+
+	}
+
+	&__menu {
+
+		ul {
+
+			width: 100%;
+			margin: 0 0 20px;
+			padding: 0;
+			display: flex;
+
+			li {
+
+				width: auto;
+				margin: 0 20px 0 0;
+				padding: 0;
+				display: inline-block;
+
+				a {
+
+					font-size: 0.9rem;
+
+				}
+
+			}
+
+		}
+
+	}
+
+	p {
+
+		font-size: 1rem;
+
+	}
+
+	.vanity-link {
+
+		font-size: 0.9rem;
+
+	}
+
+}
+

@@ -1,0 +1,13 @@
+[
+	{
+		"name": "Nude",
+		"description": "Nude is the official starter theme for your Phost blog.",
+		"domain": "Nude",
+		"template_path": "Templates",
+		"version": "1.0.0",
+		"author_name": "Daniel James",
+		"author_url": "https://www.danieltj.co.uk/",
+		"licence_name": "MIT",
+		"licence_url": "https://opensource.org/licenses/MIT"
+	}
+]

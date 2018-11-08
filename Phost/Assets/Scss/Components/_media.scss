@@ -1,0 +1,68 @@
+/**
+ * Phost, your story
+ * (c) 2018, Daniel James
+ * 
+ * Media
+ * 
+ * @package Phost
+ */
+
+#phost {
+
+	.media {
+
+		&__gallery {
+
+			width: 100%;
+			margin: 0 0 20px;
+			padding: 0;
+			display: flex;
+			align-items: center;
+			flex-wrap: wrap;
+
+		}
+
+		&__item {
+
+			padding: 0 20px 20px 0;
+			display: inline-block;
+
+			a {
+
+				background-color: $navy;
+				background-image: linear-gradient( to top, $blue, $navy );
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				width: 250px;
+				height: 250px;
+				padding: 15px;
+				display: inline-block;
+				text-decoration: none;
+				border-radius: $radius;
+				box-shadow: 6px 6px 12px rgba( 0, 0, 0, 0.15 );
+				transition: ease-in-out all 0.25s;
+				position: relative;
+
+				&:hover {
+
+					box-shadow: 6px 6px 12px rgba( 0, 0, 0, 0.3 );
+
+				}
+
+			}
+
+			span {
+
+				color: $white;
+				text-shadow: 0 6px 6px rgba( 0, 0, 0, 0.75 );
+
+			}
+
+		}
+
+	}
+
+}
+
+ 

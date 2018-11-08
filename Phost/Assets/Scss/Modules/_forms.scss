@@ -1,0 +1,323 @@
+/**
+ * Phost, your story
+ * (c) 2018, Daniel James
+ * 
+ * Forms
+ * 
+ * @package Phost
+ */
+
+form,
+fieldset {
+
+	width: 100%;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+
+}
+
+fieldset {
+
+	margin: 0 0 20px;
+
+	&:only-of-type,
+	&:last-of-type {
+
+		margin: 0;
+
+	}
+
+	&.inline {
+
+		width: auto;
+		margin: 0 10px 0 0;
+
+	}
+
+}
+
+label {
+
+	margin: 0 0 4px;
+	color: $mono;
+	font-size: $text-nl;
+	font-weight: 400;
+	font-family: $font-family;
+	cursor: pointer;
+
+}
+
+input,
+select,
+textarea {
+
+	background-color: $white;
+	border: 1px solid $grey;
+	width: 100%;
+	max-width: $container;
+	height: 36px;
+	padding: 4px 10px;
+	display: inline-block;
+	border-radius: $radius;
+	color: $mono;
+	font-size: $text-nl;
+	font-weight: 400;
+	font-family: $font-family;
+	outline: none;
+	box-sizing: border-box;
+
+	&:focus {
+
+		border: 1px solid $blue;
+		box-shadow: 0 0 0 3px lighten($blue, 25%);
+		outline: none;
+
+	}
+
+	&:disabled {
+
+		opacity: 0.5;
+		cursor: not-allowed;
+
+	}
+
+	&[type="checkbox"],
+	&[type="radio"] {
+
+		background-color: $white;
+		background-image: none;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 14px 14px;
+		width: 20px;
+		height: 20px;
+		padding: 0;
+		font-size: 0;
+		cursor: pointer;
+		transition: ease-in all 0.25s;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		vertical-align: text-bottom;
+
+		&:checked {
+
+			background-image: url('../Svg/tick.svg');
+
+		}
+
+	}
+
+	&[type="radio"] {
+
+		background-size: 12px 12px;
+		border-radius: 100%;
+
+		&:checked {
+
+			background-image: url('../Svg/cross.svg');
+
+		}
+
+	}
+
+	&[type="submit"],
+	&[type="reset"] {
+
+		background-color: $blue;
+		border: 1px solid $blue;
+		width: auto;
+		padding: 5px 15px;
+		display: inline-block;
+		border-radius: 3px;
+		box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.1);
+		color: $white;
+		font-size: 90%;
+		font-weight: 700;
+		text-decoration: none;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		transition: ease-in-out all 0.25s;
+		outline: none;
+		cursor: pointer;
+
+		&:hover {
+
+			background-color: $white;
+			color: $blue;
+
+		}
+
+	}
+
+	&[type="reset"] {
+
+		background-color: $dark-grey;
+		border: 1px solid $mono;
+		color: $white;
+
+		&:hover {
+
+			background-color: $white;
+			color: $dark-grey;
+
+		}
+
+	}
+
+	~ label {
+
+		width: calc(100% - 32px);
+		padding: 0 0 0 10px;
+
+	}
+
+	&[type="hidden"] {
+
+		display: none !important;
+
+	}
+
+}
+
+input {
+
+	&.banner {
+
+		border: none;
+		border-bottom: 1px solid $light-grey;
+		padding: 5px 0;
+		border-radius: 0;
+		color: $navy;
+		font-size: $text-hg;
+
+		&:focus {
+
+			border-color: $blue;
+			box-shadow: none;
+
+		}
+
+	}
+
+}
+
+select {
+
+	background-image: url('../svg/arrows.svg');
+	background-position: 6px center;
+	background-size: 16px 16px;
+
+}
+
+textarea {
+
+	min-height: 200px;
+	padding: 8px 10px;
+	resize: vertical;
+
+}
+
+span.required {
+
+	color: $red;
+
+}
+
+p.input-desc {
+
+	margin: 3px 0 1px;
+	color: $mono;
+	font-size: $text-lt;
+
+}
+
+ul.menu-input-list {
+
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	li {
+
+		margin: 0 0 10px;
+		padding: 0;
+		display: flex;
+		align-items: center;
+
+		&:only-of-type,
+		&:last-of-type {
+
+			margin: 0;
+
+		}
+
+		.inputs {
+
+			width: calc(100% - 16px);
+			display: flex;
+			flex-wrap: nowrap;
+
+			@media screen and ( max-width: 768px ) {
+
+				padding: 0 20px 0 0;
+				flex-wrap: wrap;
+
+			}
+
+			input {
+
+				width: calc(50% - 10px);
+				margin: 0 10px 0 0;
+				display: inline-block;
+
+				@media screen and ( max-width: 768px ) {
+
+					width: 100%;
+					margin: 0 0 -1px;
+
+					&:only-of-type,
+					&:last-of-type {
+
+						margin: 0;
+
+					}
+
+				}
+
+			}
+
+		}
+
+		.remove {
+
+			width: 16px;
+			display: inline-block;
+
+		}
+
+	}
+
+}
+
+::-webkit-input-placeholder {
+	color: $medi-grey;
+	opacity: 1;
+}
+
+::-moz-placeholder {
+	color: $medi-grey;
+	opacity: 1;
+}
+
+:-ms-input-placeholder {
+	color: $medi-grey;
+	opacity: 1;
+}
+
+:-moz-placeholder {
+	color: $medi-grey;
+	opacity: 1;
+}
+

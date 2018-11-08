@@ -1,0 +1,35 @@
+/*!
+ * Phost, your story
+ * (c) 2018, Daniel James
+ * 
+ * System stylesheet.
+ * 
+ * @package Phost
+ */
+
+// Core
+@import "Core/reset";
+@import "Core/variables";
+@import "Core/mixins";
+@import "Core/headings";
+@import "Core/layout";
+@import "Core/core";
+
+// Modules
+@import "Modules/fonts";
+@import "Modules/forms";
+@import "Modules/buttons";
+@import "Modules/tables";
+@import "Modules/notices";
+
+// Components
+@import "Components/auth";
+@import "Components/dashboard";
+@import "Components/system";
+@import "Components/editor";
+@import "Components/media";
+@import "Components/about";
+
+// Vendor
+@import "Vendor/FontAwesome/fontawesome";
+@import "Vendor/FontAwesome/solid";

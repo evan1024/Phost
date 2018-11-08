@@ -1,0 +1,35 @@
+/**
+ * Phost, your story
+ * (c) 2018, Daniel James
+ * 
+ * Fonts
+ * 
+ * @package Phost
+ */
+
+@font-face {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: url(../Font/MaterialIcons-Regular.eot);
+	src: local('../Font/Material Icons'),
+		local('../Font/MaterialIcons-Regular'),
+		url(../Font/MaterialIcons-Regular.woff2) format('woff2'),
+		url(../Font/MaterialIcons-Regular.woff) format('woff'),
+		url(../Font/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	src: url(../Font/WorkSans-Regular.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: 'Work Sans Bold';
+	font-style: normal;
+	font-weight: 700;
+	src: url(../Font/WorkSans-Bold.ttf) format('truetype');
+}
+

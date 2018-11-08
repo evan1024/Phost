@@ -1,0 +1,89 @@
+/**
+ * Phost, your story
+ * (c) 2018, Daniel James
+ * 
+ * Tables
+ * 
+ * @package Phost
+ */
+
+table {
+
+	background-color: $clear;
+	border: none;
+	width: 100%;
+
+	@media screen and ( max-width: 768px ) {
+
+		display: block;
+		overflow: auto;
+
+	}
+
+	thead,
+	tbody,
+	tfoot {
+
+		width: 100%;
+
+		tr {
+
+			width: 100%;
+
+		}
+
+		th,
+		td {
+
+			padding: 10px;
+
+		}
+
+	}
+
+	thead,
+	tfoot {
+
+		background-color: $navy;
+		border: none;
+
+		th {
+
+			color: $white;
+			font-size: $text-sm;
+			font-weight: 400;
+			font-family: $font-family;
+			text-align: left;
+			text-transform: uppercase;
+
+		}
+
+	}
+
+	tbody {
+
+		tr {
+
+			background-color: $clear;
+			border-bottom: 1px solid $grey;
+
+			&:only-of-type,
+			&:last-of-type {
+
+				border-bottom: none;
+
+			}
+
+			&:only-of-type,
+			&:last-of-type {
+
+				border-bottom: none;
+
+			}
+
+		}
+
+	}
+
+}
+
