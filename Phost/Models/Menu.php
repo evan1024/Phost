@@ -198,9 +198,19 @@ class Menu extends Model {
 			// Loop through each and clean the values.
 			foreach ( $this->menu_list as $key => $value ) {
 
-				// Filter the text based values.
-				$this->menu_list[ $key ][ 'name' ] = filter_text( $value[ 'name' ] );
-				$this->menu_list[ $key ][ 'href' ] = filter_text( $value[ 'href' ] );
+				// Filter out any invalid menu items.
+				if ( 1 <= strlen( $value[ 'name' ] ) && false !== filter_var( $value[ 'href' ], FILTER_VALIDATE_URL ) ) {
+
+					// Filter the text based values.
+					$this->menu_list[ $key ][ 'name' ] = filter_text( $value[ 'name' ] );
+					$this->menu_list[ $key ][ 'href' ] = filter_text( $value[ 'href' ] );
+
+				} else {
+
+					// At least one value is wrong so remove it.
+					unset( $this->menu_list[ $key ] );
+
+				}
 
 			}
 
@@ -267,9 +277,19 @@ class Menu extends Model {
 			// Loop through each and clean the values.
 			foreach ( $this->menu_list as $key => $value ) {
 
-				// Filter the text based values.
-				$this->menu_list[ $key ][ 'name' ] = filter_text( $value[ 'name' ] );
-				$this->menu_list[ $key ][ 'href' ] = filter_text( $value[ 'href' ] );
+				// Filter out any invalid menu items.
+				if ( 1 <= strlen( $value[ 'name' ] ) && false !== filter_var( $value[ 'href' ], FILTER_VALIDATE_URL ) ) {
+
+					// Filter the text based values.
+					$this->menu_list[ $key ][ 'name' ] = filter_text( $value[ 'name' ] );
+					$this->menu_list[ $key ][ 'href' ] = filter_text( $value[ 'href' ] );
+
+				} else {
+
+					// At least one value is wrong so remove it.
+					unset( $this->menu_list[ $key ] );
+
+				}
 
 			}
 
