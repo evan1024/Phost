@@ -190,7 +190,7 @@ class Menu extends Model {
 
 		// Clean the text based input.
 		$this->menu_name = filter_text( trim( $this->menu_name ) );
-		$this->menu_location = sanitise_text( $this->menu_location, '~[^A-Za-z0-9_[-]]~' );
+		$this->menu_location = filter_text( trim( $this->menu_name ) );
 
 		// Do we have any menu items?
 		if ( ! empty( $this->menu_list ) ) {
@@ -259,7 +259,7 @@ class Menu extends Model {
 
 		// Clean the text based input.
 		$this->menu_name = filter_text( trim( $this->menu_name ) );
-		$this->menu_location = sanitise_text( $this->menu_location, '~[^A-Za-z0-9_[-]]~' );
+		$this->menu_location = filter_text( trim( $this->menu_name ) );
 
 		// Do we have any menu items?
 		if ( ! empty( $this->menu_list ) ) {
