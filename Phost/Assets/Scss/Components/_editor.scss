@@ -9,6 +9,32 @@
 
 #phost {
 
+	@media screen and ( max-width: 768px ) {
+
+		&.es-open {
+
+			height: 100%;
+			overflow: hidden;
+			position: relative;
+
+			&::before {
+
+				background-color: rgba( 0, 0, 0, 0.2 );
+				width: 100%;
+				height: 100%;
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
+				content: '';
+				z-index: 100;
+
+			}
+
+		}
+
+	}
+
 	.editor {
 
 		width: 100%;
@@ -95,16 +121,25 @@
 					display: inline-block;
 					list-style: none;
 
-					a {
+					button {
 
 						background-color: $clear;
 						display: block;
 						color: $white;
 						transition: ease-in-out all 0.25s;
+						cursor: pointer;
+						outline: none;
 
 						&:hover {
 
 							background-color: rgba( 0, 0, 0, 0.2 );
+
+						}
+
+						&:focus {
+
+							background-color: rgba( 0, 0, 0, 0.2 );
+							box-shadow: inset 0 0 0 3px lighten( $blue, 25% );
 
 						}
 
@@ -151,15 +186,8 @@
 
 		&__inputs {
 
-			width: 66%;
-			padding: 0 20px 0 0;
-
-			@media screen and ( max-width: 768px ) {
-
-				width: 100%;
-				padding: 0 0 20px;
-
-			}
+			width: 100%;
+			padding: 0 0 20px;
 
 		}
 
@@ -194,10 +222,17 @@
 		&__settings {
 
 			background-color: $white;
-			width: 33%;
+			width: 300px;
+			height: 100vh;
 			padding: 20px;
-			border-radius: $radius;
-			box-shadow: 6px 6px 12px rgba( 0, 0, 0, 0.1 );
+			display: none;
+			overflow: auto;
+			box-shadow: -6px 0 12px rgba( 0, 0, 0, 0.1 );
+			position: fixed;
+			top: 0;
+			right: 0;
+			z-index: 200;
+			overflow: auto;
 
 			@media screen and ( max-width: 768px ) {
 

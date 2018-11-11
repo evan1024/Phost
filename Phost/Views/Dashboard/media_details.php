@@ -46,7 +46,7 @@
 
 				<div class="col col--100">
 
-					<p><i class="fas fa-reply"></i> <a href="<?php echo dashboard_url( 'media/' ); ?>">Back to media listings</a></p>
+					<p><i class="fas fa-reply" aria-hidden="true"></i> <a href="<?php echo dashboard_url( 'media/' ); ?>">Back to media listings</a></p>
 
 				</div>
 

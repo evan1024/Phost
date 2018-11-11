@@ -53,7 +53,7 @@
 
 					<div class="col col--50 col-tab--75 col-tab--100">
 
-						<p><i class="fas fa-reply"></i> <a href="<?php echo dashboard_url( 'menus/' ); ?>">Back to menu listings</a></p>
+						<p><i class="fas fa-reply" aria-hidden="true"></i> <a href="<?php echo dashboard_url( 'menus/' ); ?>">Back to menu listings</a></p>
 
 						<fieldset>
 							<label for="name">Menu name <span class="required">*</span></label>
@@ -74,11 +74,11 @@
 									<?php foreach ( $menu->menu_list as $item ) : ?>
 										<li>
 											<div class="inputs">
-												<input type="text" name="item[<?php echo $menu_index; ?>][name]" id="item" value="<?php echo $item[ 'name' ]; ?>" placeholder="Text" required="required" />
-												<input type="url" name="item[<?php echo $menu_index; ?>][href]" id="item" value="<?php echo $item[ 'href' ]; ?>" placeholder="https://" required="required" />
+												<input type="text" name="item[<?php echo $menu_index; ?>][name]" id="item" value="<?php echo $item[ 'name' ]; ?>" placeholder="Item name" required="required" aria-label="Menu item text" />
+												<input type="url" name="item[<?php echo $menu_index; ?>][href]" id="item" value="<?php echo $item[ 'href' ]; ?>" placeholder="https://" required="required" aria-label="Menu item link" />
 											</div>
 											<div class="remove">
-												<a class="remove-menu-row" role="link" tabindex="0"><i class="fas fa-trash-alt"></i></a>
+												<a class="remove-menu-row" role="link" tabindex="0" aria-label="Delete menu item"><i class="fas fa-trash-alt" aria-hidden="true"></i></a>
 											</div>
 										</li>
 										<?php $menu_index++; ?>

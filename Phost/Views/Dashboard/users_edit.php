@@ -53,7 +53,7 @@
 
 					<div class="col col--50 col-tab--75 col-tab--100">
 
-						<p><i class="fas fa-reply"></i> <a href="<?php echo dashboard_url( 'users/' ); ?>">Back to user listings</a></p>
+						<p><i class="fas fa-reply" aria-hidden="true"></i> <a href="<?php echo dashboard_url( 'users/' ); ?>">Back to user listings</a></p>
 
 						<fieldset>
 							<label for="fullname">Full name <span class="required">*</span></label>

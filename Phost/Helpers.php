@@ -1828,7 +1828,7 @@ function do_notices() {
 
 		}
 
-		$output .= '<div class="notice notice--' . $notice[ 'type' ] . ' ' . $notice[ 'id' ] . '"><p><i class="fas fa-' . $icons[ $notice[ 'type' ] ] . '"></i> ' . $notice[ 'text' ] . '</p>' . $dismiss . '</div>';
+		$output .= '<div class="notice notice--' . $notice[ 'type' ] . ' ' . $notice[ 'id' ] . '"><div class="notice__icon"><i class="fas fa-' . $icons[ $notice[ 'type' ] ] . '"></i></div><div class="notice__text"><p>' . $notice[ 'text' ] . '</p>' . $dismiss . '</div></div>';
 
 	}
 
