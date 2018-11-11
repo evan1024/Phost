@@ -62,7 +62,7 @@
 
 						<li>Your server is running PHP version <?php echo PHP_VERSION; ?>.</li>
 
-						<li>Automatic updates are currently <?php if ( auto_updates() ) : ?>enabled<?php else : ?>disabled<?php endif; ?>.</li>
+						<li>Automatic updates checks are currently <?php if ( auto_updates() ) : ?>enabled<?php else : ?>disabled<?php endif; ?>.</li>
 
 					</ul>
 
