@@ -165,7 +165,7 @@ class Setting extends Model {
 		$query = $db->connection->prepare( 'INSERT INTO ' . $db->prefix . 'settings ( setting_key, setting_value, autoload ) VALUES ( ?, ?, ? )' );
 
 		// Sanitise, filter and trim setting key and value.
-		$this->setting_key = sanitise_text( trim( $this->setting_key ), '~[^A-Za-z0-9-_]~' );
+		$this->setting_key = sanitise_text( trim( $this->setting_key ), '~[^A-Za-z0-9_[-]]~' );
 		$this->setting_value = filter_text( trim( $this->setting_value ) );
 
 		// Should this setting be autoloaded?
@@ -216,7 +216,7 @@ class Setting extends Model {
 		$query = $db->connection->prepare( 'UPDATE ' . $db->prefix . 'settings SET setting_key = ?, setting_value = ?, autoload = ? WHERE ID = ?' );
 
 		// Sanitise, filter and trim setting key and value.
-		$this->setting_key = sanitise_text( trim( $this->setting_key ), '~[^A-Za-z0-9-_]~' );
+		$this->setting_key = sanitise_text( trim( $this->setting_key ), '~[^A-Za-z0-9_[-]]~' );
 		$this->setting_value = filter_text( trim( $this->setting_value ) );
 
 		// Should this setting be autoloaded?

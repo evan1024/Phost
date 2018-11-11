@@ -63,7 +63,7 @@
 						<fieldset>
 							<label for="location">Menu location <span class="required">*</span></label>
 							<input type="text" name="location" id="location" value="<?php echo $menu->menu_location; ?>" required="required" />
-							<p class="input-desc">The location identifier defined by your chosen theme.</p>
+							<p class="input-desc">A location identifier defined within the theme.</p>
 						</fieldset>
 
 						<fieldset>

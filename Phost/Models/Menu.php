@@ -188,6 +188,24 @@ class Menu extends Model {
 		$this->created_at = date( 'Y-m-d H:i:s' );
 		$this->updated_at = date( 'Y-m-d H:i:s' );
 
+		// Clean the text based input.
+		$this->menu_name = filter_text( trim( $this->menu_name ) );
+		$this->menu_location = sanitise_text( $this->menu_location, '~[^A-Za-z0-9_[-]]~' );
+
+		// Do we have any menu items?
+		if ( ! empty( $this->menu_list ) ) {
+
+			// Loop through each and clean the values.
+			foreach ( $this->menu_list as $key => $value ) {
+
+				// Filter the text based values.
+				$this->menu_list[ $key ][ 'name' ] = filter_text( $value[ 'name' ] );
+				$this->menu_list[ $key ][ 'href' ] = filter_text( $value[ 'href' ] );
+
+			}
+
+		}
+
 		// Convert to items to JSON.
 		$this->menu_list = json_encode( $this->menu_list );
 
@@ -238,6 +256,24 @@ class Menu extends Model {
 
 		// Set the updated timestamp.
 		$this->updated_at = date( 'Y-m-d H:i:s' );
+
+		// Clean the text based input.
+		$this->menu_name = filter_text( trim( $this->menu_name ) );
+		$this->menu_location = sanitise_text( $this->menu_location, '~[^A-Za-z0-9_[-]]~' );
+
+		// Do we have any menu items?
+		if ( ! empty( $this->menu_list ) ) {
+
+			// Loop through each and clean the values.
+			foreach ( $this->menu_list as $key => $value ) {
+
+				// Filter the text based values.
+				$this->menu_list[ $key ][ 'name' ] = filter_text( $value[ 'name' ] );
+				$this->menu_list[ $key ][ 'href' ] = filter_text( $value[ 'href' ] );
+
+			}
+
+		}
 
 		// Convert to items to JSON.
 		$this->menu_list = json_encode( $this->menu_list );
