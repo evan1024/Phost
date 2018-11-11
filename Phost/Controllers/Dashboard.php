@@ -128,72 +128,40 @@ class Dashboard extends Controller {
 	/**
 	 * Check for software updates.
 	 * 
-	 * @todo make this check for real updates
-	 * 
 	 * @since 0.1.0
 	 * 
-	 * @return mixed
+	 * @return void
 	 */
 	public static function check_updates() {
 
-		// Create a settings instance.
-		$settings = new Setting;
+		// Try and check for updates.
+		if ( App::check_system_update() ) {
 
-		// Define the external release API.
-		$api_url = 'https://api.github.com/repos/danieltj27/Phost/releases/latest';
+			// Create a settings instance.
+			$setting = new Setting;
 
-		// Find the latest release.
-		$request = new HTTP( $api_url );
+			// Get the update flag.
+			$setting->fetch( 'update_available', 'setting_key' );
 
-		// Get the latest release version number.
-		$latest = ( isset( $request->response[ 'tag_name' ] ) ) ? $request->response[ 'tag_name' ] : false;
-		
-		// Did we get the latest version number?
-		if ( $latest ) {
+			// Do we have an update available?
+			if ( '0' === $setting->setting_value ) {
 
-			// Does the update_available setting exist?
-			if ( ! $settings->fetch( 'update_available', 'setting_key' ) ) {
-
-				// No, add the key so we can save it.
-				$settings->setting_key = 'update_available';
-
-			}
-
-			// Compare version numbers to determine an update.
-			if ( version_compare( $latest, blog_version(), '>' ) ) {
-
-				// An update is available.
-				$settings->setting_value = $latest;
+				// No updates today.
+				register_notice( 'core_update', 'info', 'No updates are available for installation right now.' );
 
 			} else {
 
-				// An update is not available.
-				$settings->setting_value = '0';
+				// We have an update!
+				register_notice( 'core_update', 'success', 'A system update is now available for installation.' );
 
 			}
 
-			$settings->save();
-			$settings->reset();
-
 		} else {
 
-			// Invalid update response.
-			register_notice( 'check_updates', 'warning', 'Unable to detect available system updates.' );
+			// Update check failed.
+			register_notice( 'core_update', 'warning', 'An error occurred whilst checking for updates.' );
 
 		}
-
-		// Does the update_check setting exist?
-		if ( ! $settings->fetch( 'update_check', 'setting_key' ) ) {
-
-			// No, add the key so we can save it.
-			$settings->setting_key = 'update_check';
-
-		}
-
-		// Update the last checked timestamp.
-		$settings->setting_value = date( 'Y-m-d H:i:s' );
-
-		$settings->save();
 
 		return self::redirect( 'dashboard/system/' );
 
@@ -204,82 +172,20 @@ class Dashboard extends Controller {
 	 * 
 	 * @since 0.1.0
 	 * 
-	 * @return mixed
+	 * @return void
 	 */
 	public static function core_update() {
 
-		// Do we have any update?
-		if ( update_available() ) {
+		// Try and run the updater.
+		if ( App::run_system_update() ) {
 
-			// Define the update package location.
-			$update_package_url = 'https://github.com/danieltj27/Phost/archive/' . blog_setting( 'update_available' ) . '.zip';
-
-			// The path to the local update package.
-			$local_update_package_zip = PHOSTCONTENT . 'UpdatePackage.zip';
-
-			// Create new Zip Archive instance.
-			$zip = new ZipArchive();
-
-			// Create a new zip file.
-			$zip->open( $local_update_package_zip, ZipArchive::CREATE );
-
-			// Add a faux file.
-			$zip->addFromString( 'phost_update.txt' , '' );
-
-			// Close the archiver.
-			$zip->close();
-
-			// Can we save the update package locally?
-			if ( false === file_put_contents( $local_update_package_zip, fopen( $update_package_url, 'r' ) ) ) {
-
-				// Function may be disabled.
-				register_notice( 'core_update', 'warning', 'Unable to download remote update package.' );
-
-			} else {
-
-				// Create a new Zip Archive instance.
-				$zip = new ZipArchive;
-
-				// Try and open the update package.
-				if ( $zip->open( $local_update_package_zip, ZIPARCHIVE::CREATE ) ) {
-
-					// Extract and overwrite with the zip contents.
-					$zip->extractTo( PHOSTPATH );
-
-					// Stop the instance.
-					$zip->close();
-
-					// ...and we're done.
-					register_notice( 'core_update', 'success', 'System updated to the latest version.' );
-
-					// Create a settings instance.
-					$settings = new Setting;
-
-					// Fetch the update available setting.
-					$settings->fetch( 'update_available', 'setting_key' );
-
-					// Reset the value of the setting.
-					$settings->setting_value = '0';
-
-					// Save the new value.
-					$settings->save();
-
-				} else {
-
-					// Couldn't unzip the package.
-					register_notice( 'core_update', 'warning', 'Unable to unzip the update package.' );
-
-				}
-
-			}
-
-			// Remove the update package.
-			unlink( $local_update_package_zip );
+			// We've updated!
+			register_notice( 'core_update', 'success', 'Successfully updated to the latest version of the software.' );
 
 		} else {
 
-			// No update available.
-			register_notice( 'core_update', 'info', 'An update is not currently available.' );
+			// Something went wrong.
+			register_notice( 'core_update', 'warning', 'Failed to update the software to latest version.' );
 
 		}
 

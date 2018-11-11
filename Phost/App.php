@@ -350,5 +350,159 @@ final class App {
 
 	}
 
+	/**
+	 * Check for system updates.
+	 * 
+	 * @since 0.1.0
+	 * 
+	 * @return boolean
+	 */
+	public static function check_system_update() {
+
+		// Create a settings instance.
+		$settings = new Setting;
+
+		// Define the external release API.
+		$api_url = 'https://api.github.com/repos/danieltj27/Phost/releases/latest';
+
+		// Find the latest release.
+		$request = new HTTP( $api_url );
+
+		// Get the latest release version number.
+		$latest = ( isset( $request->response[ 'tag_name' ] ) ) ? $request->response[ 'tag_name' ] : false;
+		
+		// Did we get the latest version number?
+		if ( $latest ) {
+
+			// Does the update_available setting exist?
+			if ( ! $settings->fetch( 'update_available', 'setting_key' ) ) {
+
+				// No, add the key so we can save it.
+				$settings->setting_key = 'update_available';
+
+			}
+
+			// Compare version numbers to determine an update.
+			if ( version_compare( $latest, blog_version(), '>' ) ) {
+
+				// An update is available.
+				$settings->setting_value = $latest;
+
+			} else {
+
+				// An update is not available.
+				$settings->setting_value = '0';
+
+			}
+
+			$settings->save();
+			$settings->reset();
+
+			// Does the update_check setting exist?
+			if ( ! $settings->fetch( 'update_check', 'setting_key' ) ) {
+
+				// No, add the key so we can save it.
+				$settings->setting_key = 'update_check';
+
+			}
+
+			// Update the last checked timestamp.
+			$settings->setting_value = date( 'Y-m-d H:i:s' );
+
+			$settings->save();
+
+		} else {
+
+			return false;
+
+		}
+
+		return true;
+
+	}
+
+	/**
+	 * Run a system update.
+	 * 
+	 * @since 0.1.0
+	 * 
+	 * @return boolean
+	 */
+	public static function run_system_update() {
+
+		// Do we have any update?
+		if ( update_available() ) {
+
+			// Define the update package location.
+			$update_package_url = 'https://github.com/danieltj27/Phost/archive/' . blog_setting( 'update_available' ) . '.zip';
+
+			// The path to the local update package.
+			$local_update_package_zip = PHOSTCONTENT . 'UpdatePackage.zip';
+
+			// Create new Zip Archive instance.
+			$zip = new ZipArchive();
+
+			// Create a new zip file.
+			$zip->open( $local_update_package_zip, ZipArchive::CREATE );
+
+			// Add a faux file.
+			$zip->addFromString( 'phost_update.txt' , '' );
+
+			// Close the archiver.
+			$zip->close();
+
+			// Can we save the update package locally?
+			if ( false === file_put_contents( $local_update_package_zip, fopen( $update_package_url, 'r' ) ) ) {
+
+				return false;
+
+			} else {
+
+				// Create a new Zip Archive instance.
+				$zip = new ZipArchive;
+
+				// Try and open the update package.
+				if ( $zip->open( $local_update_package_zip, ZIPARCHIVE::CREATE ) ) {
+
+					// Extract and overwrite with the zip contents.
+					$zip->extractTo( PHOSTPATH );
+
+					// Stop the instance.
+					$zip->close();
+
+					// Create a settings instance.
+					$settings = new Setting;
+
+					// Fetch the update available setting.
+					$settings->fetch( 'update_available', 'setting_key' );
+
+					// Reset the value of the setting.
+					$settings->setting_value = '0';
+
+					// Save the new value.
+					$settings->save();
+
+					// Remove successful update package.
+					unlink( $local_update_package_zip );
+
+					return true;
+
+				} else {
+
+					// Remove failed update package.
+					unlink( $local_update_package_zip );
+
+					return false;
+
+				}
+
+			}
+
+		}
+
+		return false;
+
+	}
+
 }
 

@@ -106,7 +106,7 @@
 
 						<fieldset>
 							<?php $settings->fetch( 'updates', 'setting_key' ); ?>
-							<label for="updates"><input type="checkbox" name="updates" id="updates"<?php if ( 'on' == $settings->setting_value ) : ?> checked="checked"<?php endif; ?> /> Enable automatic software updates for this blog.</label>
+							<label for="updates"><input type="checkbox" name="updates" id="updates"<?php if ( 'on' == $settings->setting_value ) : ?> checked="checked"<?php endif; ?> /> Automatically check for new system updates.</label>
 						</fieldset>
 
 						<fieldset>
