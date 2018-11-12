@@ -26,7 +26,7 @@
 
 						<label for="query" class="screen-reader-only">Search</label>
 						<input type="search" name="query" id="query" placeholder="Search for posts..." <?php if ( get_search_query() ) : ?>value="<?php echo get_search_query(); ?>" <?php endif; ?>/>
-						<button type="submit" id="submit"><i class="fas fa-search"></i></button>
+						<button type="submit" id="submit" aria-label="Search posts"><i class="fas fa-search" aria-hidden="true"></i></button>
 
 					</form>
 
