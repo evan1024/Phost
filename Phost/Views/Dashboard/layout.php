@@ -36,19 +36,19 @@
 
 					<ul>
 
-						<li><a href="<?php echo dashboard_url(); ?>"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+						<li><a href="<?php echo dashboard_url(); ?>"><i class="fas fa-tachometer-alt" aria-hidden="true"></i> Dashboard</a></li>
 						<li class="spacer"></li>
-						<li><a href="<?php echo dashboard_url( 'posts/new/' ); ?>"><i class="fas fa-plus"></i> New Post</a></li>
-						<li><a href="<?php echo dashboard_url( 'posts/' ); ?>"><i class="fas fa-pencil-alt"></i> Posts</a></li>
-						<li><a href="<?php echo dashboard_url( 'media/' ); ?>"><i class="fas fa-image"></i> Media</a></li>
+						<li><a href="<?php echo dashboard_url( 'posts/new/' ); ?>"><i class="fas fa-plus" aria-hidden="true"></i> New Post</a></li>
+						<li><a href="<?php echo dashboard_url( 'posts/' ); ?>"><i class="fas fa-pencil-alt" aria-hidden="true"></i> Posts</a></li>
+						<li><a href="<?php echo dashboard_url( 'media/' ); ?>"><i class="fas fa-image" aria-hidden="true"></i> Media</a></li>
 						<li class="spacer"></li>
-						<li><a href="<?php echo dashboard_url( 'users/edit/' . my_id() . '/' ); ?>"><i class="fas fa-smile"></i> Profile</a></li>
+						<li><a href="<?php echo dashboard_url( 'users/edit/' . my_id() . '/' ); ?>"><i class="fas fa-smile" aria-hidden="true"></i> Profile</a></li>
 						<?php if ( is_admin() ) : ?>
-							<li><a href="<?php echo dashboard_url( 'users/' ); ?>"><i class="fas fa-user-friends"></i> Users</a></li>
-							<li><a href="<?php echo dashboard_url( 'menus/' ); ?>"><i class="fas fa-list-ol"></i> Menus</a></li>
-							<li><a href="<?php echo dashboard_url( 'settings/' ); ?>"><i class="fas fa-wrench"></i> Settings</a></li>
+							<li><a href="<?php echo dashboard_url( 'users/' ); ?>"><i class="fas fa-user-friends" aria-hidden="true"></i> Users</a></li>
+							<li><a href="<?php echo dashboard_url( 'menus/' ); ?>"><i class="fas fa-list-ol" aria-hidden="true"></i> Menus</a></li>
+							<li><a href="<?php echo dashboard_url( 'settings/' ); ?>"><i class="fas fa-wrench" aria-hidden="true"></i> Settings</a></li>
 							<li class="spacer"></li>
-							<li><a href="<?php echo dashboard_url( 'system/' ); ?>"><i class="fas fa-university"></i> System</a></li>
+							<li><a href="<?php echo dashboard_url( 'system/' ); ?>"><i class="fas fa-university" aria-hidden="true"></i> System</a></li>
 						<?php endif; ?>
 
 					</ul>
@@ -57,7 +57,7 @@
 
 				<div class="header__callout">
 
-					<a href="<?php echo auth_url( 'logout/' ); ?>" class="button"><i class="fas fa-door-open"></i> Log Out</a>
+					<a href="<?php echo auth_url( 'logout/' ); ?>" class="button"><i class="fas fa-door-open" aria-hidden="true"></i> Log Out</a>
 
 				</div>
 
