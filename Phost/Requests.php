@@ -166,6 +166,9 @@ class Requests {
 		// Check if we need to upgrade to HSTS.
 		$this->maybe_http_upgrade();
 
+		// Run the automatic update chacker.
+		$this->run_auto_update_checker();
+
 	}
 
 	/**
@@ -195,6 +198,21 @@ class Requests {
 			return true;
 
 		}
+
+		return false;
+
+	}
+
+	/**
+	 * Run an automatic system update check.
+	 * 
+	 * @todo make this work properly
+	 * 
+	 * @since 0.1.0
+	 * 
+	 * @return boolean
+	 */
+	public function run_auto_update_checker() {
 
 		return false;
 
