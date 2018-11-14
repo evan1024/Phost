@@ -359,11 +359,18 @@ final class App {
 	 */
 	public static function check_system_update() {
 
+		// Is ZipArchive installed?
+		if ( ! class_exists( 'ZipArchive' ) ) {
+
+			return false;
+
+		}
+
 		// Create a settings instance.
 		$settings = new Setting;
 
 		// Define the external release API.
-		$api_url = 'https://api.github.com/repos/danieltj27/Phost/releases/latest';
+		$api_url = 'https://api.github.com/repos/danieltj27/Dark-Mode/releases/latest';
 
 		// Find the latest release.
 		$request = new HTTP( $api_url );
@@ -424,17 +431,28 @@ final class App {
 	/**
 	 * Run a system update.
 	 * 
+	 * @todo need to ensure the zip archive is extracted to
+	 *       the root directory of the application rather than
+	 *       in a sub folder.
+	 * 
 	 * @since 0.1.0
 	 * 
 	 * @return boolean
 	 */
 	public static function run_system_update() {
 
+		// Is ZipArchive installed?
+		if ( ! class_exists( 'ZipArchive' ) ) {
+
+			return false;
+
+		}
+
 		// Do we have any update?
 		if ( update_available() ) {
 
 			// Define the update package location.
-			$update_package_url = 'https://github.com/danieltj27/Phost/archive/' . blog_setting( 'update_available' ) . '.zip';
+			$update_package_url = 'https://github.com/danieltj27/Dark-Mode/archive/' . blog_setting( 'update_available' ) . '.zip';
 
 			// The path to the local update package.
 			$local_update_package_zip = PHOSTCONTENT . 'UpdatePackage.zip';
@@ -464,10 +482,10 @@ final class App {
 				// Try and open the update package.
 				if ( $zip->open( $local_update_package_zip, ZIPARCHIVE::CREATE ) ) {
 
-					// Extract and overwrite with the zip contents.
+					// // Extract and overwrite with the zip contents.
 					$zip->extractTo( PHOSTPATH );
 
-					// Stop the instance.
+					// // Stop the instance.
 					$zip->close();
 
 					// Create a settings instance.
