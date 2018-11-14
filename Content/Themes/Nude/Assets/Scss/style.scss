@@ -379,6 +379,30 @@ a {
 
 }
 
+.heading {
+
+	&--emphasis {
+
+		margin: 0 0 35px;
+		padding: 0 0 35px;
+		position: relative;
+
+		&::before {
+
+			background-color: #eee;
+			width: 50px;
+			height: 3px;
+			display: block;
+			position: absolute;
+			bottom: 0;
+			content: '';
+
+		}
+
+	}
+
+}
+
 .post {
 
 	width: 100%;

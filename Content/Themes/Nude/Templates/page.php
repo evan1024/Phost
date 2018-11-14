@@ -2,7 +2,7 @@
 
 	<div class="page__heading">
 
-		<h1 class="heading"><?php echo $page->post_title; ?></h1>
+		<h1 class="heading heading--emphasis"><?php echo $page->post_title; ?></h1>
 
 	</div>
 

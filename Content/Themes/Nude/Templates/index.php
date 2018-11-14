@@ -1,4 +1,4 @@
-<h1 class="heading">Blog</h1>
+<h1 class="heading heading--emphasis">Blog</h1>
 
 <?php if ( ! empty( $posts ) ) : ?>
 
