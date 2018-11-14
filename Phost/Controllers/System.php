@@ -458,8 +458,8 @@ define( 'DB_PREFIX', '" . $_POST[ 'prefix' ] . "' );" . PHP_EOL;
 				'setting_key' => 'register',
 				'setting_value' => 'off'
 			),
-			'updates' => array(
-				'setting_key' => 'updates',
+			'auto_check' => array(
+				'setting_key' => 'auto_check',
 				'setting_value' => 'on'
 			),
 			'language' => array(

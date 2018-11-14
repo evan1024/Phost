@@ -370,7 +370,7 @@ final class App {
 		$settings = new Setting;
 
 		// Define the external release API.
-		$api_url = 'https://api.github.com/repos/danieltj27/Dark-Mode/releases/latest';
+		$api_url = 'https://api.github.com/repos/danieltj27/Phost/releases/latest';
 
 		// Find the latest release.
 		$request = new HTTP( $api_url );
@@ -452,7 +452,7 @@ final class App {
 		if ( update_available() ) {
 
 			// Define the update package location.
-			$update_package_url = 'https://github.com/danieltj27/Dark-Mode/archive/' . blog_setting( 'update_available' ) . '.zip';
+			$update_package_url = 'https://github.com/danieltj27/Phost/archive/' . blog_setting( 'update_available' ) . '.zip';
 
 			// The path to the local update package.
 			$local_update_package_zip = PHOSTCONTENT . 'UpdatePackage.zip';
@@ -464,7 +464,7 @@ final class App {
 			$zip->open( $local_update_package_zip, ZipArchive::CREATE );
 
 			// Add a faux file.
-			$zip->addFromString( 'phost_update.txt' , '' );
+			$zip->addFromString( 'phost_update' . date( 'YmdHis' ) . '.txt' , '' );
 
 			// Close the archiver.
 			$zip->close();

@@ -206,7 +206,11 @@ class Requests {
 	/**
 	 * Run an automatic system update check.
 	 * 
-	 * @todo make this work properly
+	 * The automatic update check is triggered by any
+	 * user visiting the blog as long as the daily timeout
+	 * period has been reached. Whilst this may be better
+	 * to do via cron, it needs to be easily enabled and
+	 * disabled by the average user... servers are hard.
 	 * 
 	 * @since 0.1.0
 	 * 
@@ -214,7 +218,35 @@ class Requests {
 	 */
 	public function run_auto_update_checker() {
 
-		return false;
+		// Create a settings instance.
+		$settings = new Setting;
+
+		// Get the automatic update check settings value.
+		$settings->fetch( 'auto_check', 'setting_key' );
+
+		// Are auto update checks enabled?
+		if ( 'on' == $settings->setting_value ) {
+
+			// Get the last check time.
+			$settings->fetch( 'update_check', 'setting_key' );
+
+			// Get the next update time.
+			$next_check = strtotime( $settings->setting_value . ' +1 day' );
+
+			// Get the current time.
+			$current_time = strtotime( date( 'Y-m-d H:i:s' ) );
+
+			// Are we due to check again?
+			if ( $next_check <= $current_time ) {
+
+				// Run the update check.
+				App::check_system_update();
+
+			}
+
+		}
+
+		return true;
 
 	}
 

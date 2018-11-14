@@ -703,7 +703,7 @@ function update_available() {
 }
 
 /**
- * Checks if automatic updates are enabled.
+ * Checks if auto update checks are on.
  * 
  * @since 0.1.0
  * 
@@ -712,7 +712,7 @@ function update_available() {
 function auto_updates() {
 
 	// Are automatic updates enabled?
-	if ( 'on' == blog_setting( 'updates' ) ) {
+	if ( 'on' == blog_setting( 'auto_check' ) ) {
 
 		return true;
 
