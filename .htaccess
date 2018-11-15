@@ -1,0 +1,19 @@
+# Check if the mod_rewrite module has been enabled
+# on the server to allow for pretty permalinks.
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /
+	RewriteCond %{REQUEST_FILENAME} !-f
+	#RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule . /index.php [L]
+</IfModule>
+
+# Deny access to the config.php file to prevent
+# unauthorised access to senstive database details.
+<Files "config.php">
+	Order Allow,Deny
+	Deny from all
+</Files>
+
+# Prevent file snooping.
+Options All -Indexes

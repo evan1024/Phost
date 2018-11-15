@@ -279,8 +279,11 @@ class Requests {
 		// Loop through and remove empty parts.
 		foreach ( $dirty_parts as $part ) {
 
+			// Remove any PHP file extensions.
+			$part = str_replace( '.php', '', $part );
+
 			// Remove the bad characters.
-			$part = sanitise_text( $part, '~[^A-Za-z0-9-]~' );
+			$part = sanitise_text( $part, '~[^A-Za-z0-9_[-]]~' );
 
 			// If it's blank, don't add it.
 			if ( '' != $part ) {
