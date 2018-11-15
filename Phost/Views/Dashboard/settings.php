@@ -83,7 +83,7 @@
 						</fieldset>
 
 						<fieldset>
-							<label for="per_page">Per Page <span class="required">*</span></label>
+							<label for="per_page">Per page <span class="required">*</span></label>
 							<?php $settings->fetch( 'per_page', 'setting_key' ); ?>
 							<input type="number" name="per_page" id="per_page" value="<?php echo $settings->setting_value; ?>" min="1" steps="1" />
 							<p class="input-desc">The number of posts, users and other items per page.</p>

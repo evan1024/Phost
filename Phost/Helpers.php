@@ -1695,6 +1695,53 @@ function get_users( $opts = array(), $set_pages = false ) {
 }
 
 /**
+ * Get settings based on a set of query options.
+ * 
+ * @uses Query
+ * 
+ * @since 0.1.0
+ * 
+ * @param array   $opts      The options for the query.
+ * @param boolean $set_pages Flag to set the total pages count.
+ * 
+ * @return array
+ */
+function get_settings( $opts = array(), $set_pages = false ) {
+
+	// Force the table name.
+	$opts[ 'table' ] = 'settings';
+
+	// Get the settings.
+	$items = new Query( $opts );
+
+	$settings = array();
+
+	if ( ! empty( $items->items ) ) {
+
+		if ( false !== $set_pages ) {
+
+			set_total_pages( $items->count );
+
+		}
+
+		// Format each item.
+		foreach ( $items->items as $item ) {
+
+			$setting = new Setting;
+
+			$setting->format_array( $item );
+
+			$settings[] = $setting;
+
+		}
+
+	}
+
+	return $settings;
+
+}
+
+/**
  * Returns the list of menu items by location.
  * 
  * This function returns an array of menu items based
@@ -1740,14 +1787,15 @@ function get_menu_links( $location = '' ) {
  * 
  * @since 0.1.0
  * 
- * @param string  $id      The unique nnotice id.
- * @param string  $type    The type of notice.
- * @param string  $text    The text for this notice.
- * @param boolean $dismiss The dismiss notice flag.
+ * @param string  $id         The unique nnotice id.
+ * @param string  $type       The type of notice.
+ * @param string  $text       The text for this notice.
+ * @param boolean $dismiss    The dismiss notice flag.
+ * @param boolean $cache_bust The notice cache bust flag.
  * 
  * @return boolean
  */
-function register_notice( $id, $type, $text, $dismiss = true ) {
+function register_notice( $id, $type, $text, $dismiss = true, $cache_bust = false ) {
 
 	// Map the notice options.
 	$opts = array(
@@ -1773,7 +1821,69 @@ function register_notice( $id, $type, $text, $dismiss = true ) {
 	// Add the notice to the session.
 	$_SESSION[ 'notices' ][ $opts[ 'id' ] ] = $opts;
 
+	// Bust the cache for this notice?
+	if ( true === $cache_bust ) {
+
+		update_notice_cache( $opts[ 'id' ] );
+
+	}
+
 	return true;
+
+}
+
+/**
+ * Update session set notices.
+ * 
+ * This function can be used to update the global
+ * notices cache if a notice has been added after
+ * the application has been initialised but needs
+ * outputting before shutdown.
+ * 
+ * @since 0.1.0
+ * 
+ * @param string $id The optional id of a notice to update.
+ * 
+ * @return boolean
+ */
+function update_notice_cache( $id = '' ) {
+
+	global $_notices;
+
+	// Do we have an id?
+	if ( isset( $_SESSION[ 'notices' ] ) && is_array( $_notices ) ) {
+
+		// Do we have an id?
+		if ( '' != $id ) {
+
+			// Does the notice exist?
+			if ( isset( $_SESSION[ 'notices' ][ $id ] ) ) {
+
+				// Add the specified notice.
+				$_notices[ $id ] = $_SESSION[ 'notices' ][ $id ];
+
+				// Remove this notice from the session.
+				unset( $_SESSION[ 'notices' ][ $id ] );
+
+				return true;
+
+			}
+
+		} else {
+
+			// Merge the notice arrays together.
+			$_notices = array_merge( $_notices, $_SESSION[ 'notices' ] );
+
+			// Clear the session notices.
+			$_SESSION[ 'notices' ] = array();
+
+			return true;
+
+		}
+
+	}
+
+	return false;
 
 }
 
@@ -1962,7 +2072,7 @@ function content_excerpt( $post, $length = 140 ) {
 function hash_password( $password, $options = array() ) {
 
 	// Are we using PHP 7.2 or above?
-	if ( version_compare( '7.2', PHP_VERSION, '<=' ) && defined( 'PASSWORD_ARGON2I' ) ) {
+	if ( version_compare( '7.2', PHP_VERSION, '<=' ) && defined( 'PASSWORD_ARGON2I' ) && 'argon2' == blog_setting( 'flag_pass_hash' ) ) {
 
 		$algo = PASSWORD_ARGON2I;
 

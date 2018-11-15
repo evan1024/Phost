@@ -539,7 +539,7 @@ class Post extends Model {
 	 * 
 	 * @since 0.1.0
 	 * 
-	 * @param array $data The array of post data to format.
+	 * @param array $data The array of post data to formatted.
 	 * 
 	 * @return void
 	 */

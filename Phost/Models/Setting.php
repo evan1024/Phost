@@ -301,6 +301,34 @@ class Setting extends Model {
 	}
 
 	/**
+	 * Format an array of setting data into an object.
+	 * 
+	 * This function is for formatting arrays of data that have
+	 * been fetched directly from the database and transforming
+	 * it into a proper setting object.
+	 * 
+	 * @since 0.1.0
+	 * 
+	 * @param array $data The array of setting data to formatted.
+	 * 
+	 * @return void
+	 */
+	public function format_array( $data = array() ) {
+
+		// Do we have anything in this array?
+		if ( is_array( $data ) && ! empty( $data ) ) {
+
+			$this->previous_ID = $this->ID;
+			$this->ID = isset( $data[ 'id' ] ) ? $data[ 'id' ] : 0;
+			$this->setting_key = isset( $data['setting_key'] ) ? $data[ 'setting_key' ] : '';
+			$this->setting_value = isset( $data['setting_value'] ) ? $data[ 'setting_value' ] : '';
+			$this->autoload = isset( $data['autoload'] ) ? $data[ 'autoload' ] : 'yes';
+
+		}
+
+	}
+
+	/**
 	 * Check a setting exists.
 	 * 
 	 * @since 0.1.0

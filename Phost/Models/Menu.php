@@ -359,7 +359,7 @@ class Menu extends Model {
 	 * 
 	 * @since 0.1.0
 	 * 
-	 * @param array $data The array of menu data to format.
+	 * @param array $data The array of menu data to formatted.
 	 * 
 	 * @return void
 	 */

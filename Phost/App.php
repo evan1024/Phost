@@ -236,13 +236,13 @@ final class App {
 		global $_notices;
 
 		// Do we even have any notices?
-		if ( isset( $_SESSION['notices'] ) ) {
+		if ( isset( $_SESSION[ 'notices' ] ) ) {
 
 			// Hand them over.
-			$_notices = $_SESSION['notices'];
+			$_notices = $_SESSION[ 'notices' ];
 
 			// Reset the session.
-			$_SESSION['notices'] = array();
+			$_SESSION[ 'notices' ] = array();
 
 		}
 

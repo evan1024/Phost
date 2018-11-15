@@ -61,6 +61,8 @@ class Dashboard extends Controller {
 		$this->post( 'dashboard/menus/delete/:param/', array( $this->class, 'menus_delete' ), is_admin() );
 		$this->get( 'dashboard/settings/', array( $this->class, 'settings' ), is_admin() );
 		$this->post( 'dashboard/settings/save/', array( $this->class, 'settings_save' ), is_admin() );
+		$this->get( 'dashboard/flags/', array( $this->class, 'flags' ), is_admin() );
+		$this->post( 'dashboard/flags/save/', array( $this->class, 'flags_save' ), is_admin() );
 		$this->get( 'dashboard/posts/', array( $this->class, 'posts' ), is_logged_in() );
 		$this->get( 'dashboard/posts/new/', array( $this->class, 'posts_new' ), is_logged_in() );
 		$this->post( 'dashboard/posts/save/', array( $this->class, 'posts_save' ), is_logged_in() );
@@ -438,7 +440,7 @@ class Dashboard extends Controller {
 	 */
 	public static function settings() {
 
-		// Create new settings instance.
+		// Create a setting instance.
 		$settings = new Setting;
 
 		// Get all themes
@@ -460,24 +462,22 @@ class Dashboard extends Controller {
 	 */
 	public static function settings_save() {
 
-		// Get all current site settings.
+		// Get all site settings.
 		$settings = new Setting;
 		$settings_all = $settings->all();
 
 		// Loop through and save each setting.
 		foreach ( $settings_all as $setting ) {
 
-			// Try and set to this instance.
+			// Fetch the setting if it exists.
 			if ( $settings->fetch( $setting[ 'setting_key' ], 'setting_key' ) ) {
 
-				// Update the value.
 				$settings->setting_value = ( isset( $_POST[ $settings->setting_key ] ) ) ? $_POST[ $settings->setting_key ] : $settings->setting_value;
 
-				// Save the value and reset.
 				$settings->save();
 				$settings->reset();
 
-				// Unset the posted value.
+				// Remove from the array.
 				unset( $_POST[ $setting[ 'setting_key' ] ] );
 
 			}
@@ -498,11 +498,10 @@ class Dashboard extends Controller {
 				$settings->setting_value = $value;
 				$settings->autoload = 'yes';
 
-				// Save and reset.
 				$settings->save();
 				$settings->reset();
 
-				// Unset it.
+				// Remove from the array.
 				unset( $_POST[ $key ] );
 
 			}
@@ -512,6 +511,84 @@ class Dashboard extends Controller {
 		register_notice( 'settings_save', 'success', 'The settings have been saved.' );
 
 		return self::redirect( 'dashboard/settings/' );
+
+	}
+
+	/**
+	 * Site flags.
+	 * 
+	 * @since 0.1.0
+	 * 
+	 * @return mixed
+	 */
+	public static function flags() {
+
+		register_notice( 'flags', 'info', 'Be careful. Flags let you to use experimental features early that may cause problems.', false, true );
+
+		// Create a flag instance.
+		$flags = new Setting;
+
+		return self::view( self::$path . 'flags.php', array( 'title' => 'Flags &lsaquo; Dashboard', 'flags' => $flags ), true );
+
+	}
+
+	/**
+	 * Save flags.
+	 * 
+	 * @since 0.1.0
+	 * 
+	 * @return mixed
+	 */
+	public static function flags_save() {
+
+		// Get all site flags.
+		$flags = new Setting;
+		$flags_all = $flags->all();
+
+		// Loop through and save each flag.
+		foreach ( $flags_all as $flag ) {
+
+			// Fetch the flag if it exists.
+			if ( $flags->fetch( $flag[ 'setting_key' ], 'setting_key' ) ) {
+
+				$flags->setting_value = ( isset( $_POST[ $flags->setting_key ] ) ) ? $_POST[ $flags->setting_key ] : $flags->setting_value;
+
+				$flags->save();
+				$flags->reset();
+
+				// Remove from the array.
+				unset( $_POST[ $flag[ 'setting_key' ] ] );
+
+			}
+
+		}
+
+		// Do we have any unsaved fields?
+		if ( ! empty( $_POST ) ) {
+
+			$flags->reset();
+
+			// Save each value.
+			foreach ( $_POST as $key => $value ) {
+
+				// Set the new flag instance up.
+				$flags->setting_key = $key;
+				$flags->setting_value = $value;
+				$flags->autoload = 'yes';
+
+				$flags->save();
+				$flags->reset();
+
+				// Remove from the array.
+				unset( $_POST[ $key ] );
+
+			}
+
+		}
+
+		register_notice( 'flags_save', 'success', 'The flags have been saved.' );
+
+		return self::redirect( 'dashboard/flags/' );
 
 	}
 
