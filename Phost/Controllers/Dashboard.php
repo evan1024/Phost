@@ -463,43 +463,44 @@ class Dashboard extends Controller {
 	public static function settings_save() {
 
 		// Get all site settings.
-		$settings = new Setting;
-		$settings_all = $settings->all();
+		$settings = get_settings(
+			array(
+				'orderby' => 'ID',
+				'order' => 'ASC',
+				'limit' => 0,
+				'offset' => 0
+			)
+		);
 
 		// Loop through and save each setting.
-		foreach ( $settings_all as $setting ) {
+		foreach ( $settings as $setting ) {
 
-			// Fetch the setting if it exists.
-			if ( $settings->fetch( $setting[ 'setting_key' ], 'setting_key' ) ) {
+			$setting->setting_value = ( isset( $_POST[ $setting->setting_key ] ) ) ? $_POST[ $setting->setting_key ] : $setting->setting_value;
 
-				$settings->setting_value = ( isset( $_POST[ $settings->setting_key ] ) ) ? $_POST[ $settings->setting_key ] : $settings->setting_value;
+			$setting->save();
+			$setting->reset();
 
-				$settings->save();
-				$settings->reset();
-
-				// Remove from the array.
-				unset( $_POST[ $setting[ 'setting_key' ] ] );
-
-			}
+			// Remove from the array.
+			unset( $_POST[ $setting->setting_key ] );
 
 		}
 
 		// Do we have any unsaved fields?
 		if ( ! empty( $_POST ) ) {
 
-			// Prep the instance.
-			$settings->reset();
+			// Create a settings instance.
+			$setting = new Setting;
 
 			// Save each value.
 			foreach ( $_POST as $key => $value ) {
 
 				// Set the new settings instance up.
-				$settings->setting_key = $key;
-				$settings->setting_value = $value;
-				$settings->autoload = 'yes';
+				$setting->setting_key = $key;
+				$setting->setting_value = $value;
+				$setting->autoload = 'yes';
 
-				$settings->save();
-				$settings->reset();
+				$setting->save();
+				$setting->reset();
 
 				// Remove from the array.
 				unset( $_POST[ $key ] );

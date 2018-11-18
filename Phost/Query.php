@@ -171,12 +171,22 @@ class Query {
 		// Should we count or fetch the items?
 		if ( false === $count ) {
 
-			// Prepare the fetch query.
-			$query = $db->connection->prepare( 'SELECT * FROM ' . $db->prefix . $this->opts[ 'table' ] .' ' . $where . ' ORDER BY ' . $this->opts[ 'orderby' ] . ' ' . $this->opts[ 'order' ] . ' LIMIT :offset, :limit' );
+			// Is there a limit set?
+			if ( 0 === $this->opts[ 'limit' ] ) {
 
-			// Bind the parameters to our query.
-			$query->bindParam( ':offset', $this->opts[ 'offset' ], PDO::PARAM_INT );
-			$query->bindParam( ':limit', $this->opts[ 'limit' ], PDO::PARAM_INT );
+				// Prepare with a limit and offset.
+				$query = $db->connection->prepare( 'SELECT * FROM ' . $db->prefix . $this->opts[ 'table' ] .' ' . $where . ' ORDER BY ' . $this->opts[ 'orderby' ] . ' ' . $this->opts[ 'order' ] );
+
+			} else {
+
+				// Prepare the standard fetch query.
+				$query = $db->connection->prepare( 'SELECT * FROM ' . $db->prefix . $this->opts[ 'table' ] .' ' . $where . ' ORDER BY ' . $this->opts[ 'orderby' ] . ' ' . $this->opts[ 'order' ] . ' LIMIT :offset, :limit' );
+
+				// Bind the parameters to our query.
+				$query->bindParam( ':offset', $this->opts[ 'offset' ], PDO::PARAM_INT );
+				$query->bindParam( ':limit', $this->opts[ 'limit' ], PDO::PARAM_INT );
+
+			}
 
 		} else {
 
