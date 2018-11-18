@@ -542,43 +542,45 @@ class Dashboard extends Controller {
 	 */
 	public static function flags_save() {
 
-		// Get all site flags.
-		$flags = new Setting;
-		$flags_all = $flags->all();
+		// Get all site settings.
+		$flags = get_settings(
+			array(
+				'orderby' => 'ID',
+				'order' => 'ASC',
+				'limit' => 0,
+				'offset' => 0
+			)
+		);
 
-		// Loop through and save each flag.
-		foreach ( $flags_all as $flag ) {
+		// Loop through and save each setting.
+		foreach ( $flags as $flag ) {
 
-			// Fetch the flag if it exists.
-			if ( $flags->fetch( $flag[ 'setting_key' ], 'setting_key' ) ) {
+			$flag->setting_value = ( isset( $_POST[ $flag->setting_key ] ) ) ? $_POST[ $flag->setting_key ] : $flag->setting_value;
 
-				$flags->setting_value = ( isset( $_POST[ $flags->setting_key ] ) ) ? $_POST[ $flags->setting_key ] : $flags->setting_value;
+			$flag->save();
+			$flag->reset();
 
-				$flags->save();
-				$flags->reset();
-
-				// Remove from the array.
-				unset( $_POST[ $flag[ 'setting_key' ] ] );
-
-			}
+			// Remove from the array.
+			unset( $_POST[ $flag->setting_key ] );
 
 		}
 
 		// Do we have any unsaved fields?
 		if ( ! empty( $_POST ) ) {
 
-			$flags->reset();
+			// Create a settings instance.
+			$flag = new Setting;
 
 			// Save each value.
 			foreach ( $_POST as $key => $value ) {
 
-				// Set the new flag instance up.
-				$flags->setting_key = $key;
-				$flags->setting_value = $value;
-				$flags->autoload = 'yes';
+				// Set the new settings instance up.
+				$flag->setting_key = $key;
+				$flag->setting_value = $value;
+				$flag->autoload = 'yes';
 
-				$flags->save();
-				$flags->reset();
+				$flag->save();
+				$flag->reset();
 
 				// Remove from the array.
 				unset( $_POST[ $key ] );
