@@ -126,26 +126,51 @@ class Query {
 				$where_is = array_merge( $where_defs, $where_is );
 
 				// Force comparison to certain types.
-				$where_is[ 'compare' ] = ( in_array( $where_is[ 'compare' ], array( '=', '!=', '>=', '<=', '>', '<', 'LIKE', 'IN' ), true ) ) ? $where_is[ 'compare' ] : '=';
+				$where_is[ 'compare' ] = ( in_array( $where_is[ 'compare' ], array( '=', '!=', '>=', '<=', '>', '<', 'LIKE', 'LIKE_START', 'LIKE_END', 'IN' ), true ) ) ? $where_is[ 'compare' ] : '=';
 
 				// Are we using IN?
-				if ( 'LIKE' == $where_is[ 'compare' ] ) {
+				if ( 'IN' == $where_is[ 'compare' ] ) {
 
 					// Add string to where array for later.
 					$where[] = $where_is[ 'key' ] . ' ' . $where_is[ 'compare' ] . ' (:' . $where_is[ 'key' ] . ')';
 
 				} else {
 
-					// Add string to where array for later.
-					$where[] = $where_is[ 'key' ] . ' ' . $where_is[ 'compare' ] . ' :' . $where_is[ 'key' ];
+					// Are we using any LIKE comparisons?
+					if ( in_array( $where_is[ 'compare' ], array( 'LIKE', 'LIKE_START', 'LIKE_END' ), true ) ) {
+
+						// Add WHERE string for LIKE comparing.
+						$where[] = $where_is[ 'key' ] . ' LIKE :' . $where_is[ 'key' ];
+
+					} else {
+
+						// Add WHERE string for comparisons.
+						$where[] = $where_is[ 'key' ] . ' ' . $where_is[ 'compare' ] . ' :' . $where_is[ 'key' ];
+
+					}
 
 				}
 
-				// Are we using LIKE or IN?
-				if ( 'LIKE' == $where_is[ 'compare' ] ) {
+				// Are we using LIKE?
+				if ( in_array( $where_is[ 'compare' ], array( 'LIKE', 'LIKE_START', 'LIKE_END' ), true ) ) {
 
-					// Add percentages for better case matching.
-					$where_is[ 'value' ] = '%' . $where_is[ 'value' ] . '%';
+					// Add LIKE placeholder based on comparison.
+					if ( 'LIKE' == $where_is[ 'compare' ] ) {
+
+						$like_placeholder = '%' . $where_is[ 'value' ] . '%';
+
+					} elseif ( 'LIKE_START' == $where_is[ 'compare' ] ) {
+
+						$like_placeholder = $where_is[ 'value' ] . '%';
+
+					} elseif ( 'LIKE_END' == $where_is[ 'compare' ] ) {
+
+						$like_placeholder = '%' . $where_is[ 'value' ];
+
+					}
+
+					// Set the value as a placeholder.
+					$where_is[ 'value' ] = $like_placeholder;
 
 				} elseif ( 'IN' == $where_is[ 'compare' ] && is_array( $where_is[ 'value' ] ) ) {
 

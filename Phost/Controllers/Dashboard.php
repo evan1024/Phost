@@ -477,11 +477,11 @@ class Dashboard extends Controller {
 
 			$setting->setting_value = ( isset( $_POST[ $setting->setting_key ] ) ) ? $_POST[ $setting->setting_key ] : $setting->setting_value;
 
-			$setting->save();
-			$setting->reset();
-
 			// Remove from the array.
 			unset( $_POST[ $setting->setting_key ] );
+
+			$setting->save();
+			$setting->reset();
 
 		}
 
@@ -545,6 +545,13 @@ class Dashboard extends Controller {
 		// Get all site settings.
 		$flags = get_settings(
 			array(
+				'where' => array(
+					array(
+						'key' => 'setting_key',
+						'value' => 'flag_',
+						'compare' => 'LIKE_START'
+					)
+				),
 				'orderby' => 'ID',
 				'order' => 'ASC',
 				'limit' => 0,
@@ -557,11 +564,11 @@ class Dashboard extends Controller {
 
 			$flag->setting_value = ( isset( $_POST[ $flag->setting_key ] ) ) ? $_POST[ $flag->setting_key ] : $flag->setting_value;
 
-			$flag->save();
-			$flag->reset();
-
 			// Remove from the array.
 			unset( $_POST[ $flag->setting_key ] );
+
+			$flag->save();
+			$flag->reset();
 
 		}
 
