@@ -89,7 +89,28 @@ class Dashboard extends Controller {
 	 */
 	public static function index() {
 
-		return self::view( self::$path . 'index.php', array( 'title' => 'Dashboard' ), true );
+		// Get the current user.
+		$me = current_user();
+
+		// Get published posts.
+		$posts = get_posts(
+			array(
+				'where' => array(
+					array(
+						'key' => 'status',
+						'value' => 'publish'
+					)
+				)
+			)
+		);
+
+		// Get all media.
+		$media = get_media();
+
+		// Get all users.
+		$users = get_users();
+
+		return self::view( self::$path . 'index.php', array( 'title' => 'Dashboard', 'me' => $me, 'posts' => $posts, 'media' => $media, 'users' => $users ), true );
 
 	}
 
@@ -249,9 +270,7 @@ class Dashboard extends Controller {
 		$menus = get_menus(
 			array(
 				'orderby' => 'ID',
-				'order' => 'DESC',
-				'limit' => 999,
-				'offset' => 0
+				'order' => 'DESC'
 			),
 			true
 		);
@@ -279,9 +298,7 @@ class Dashboard extends Controller {
 					)
 				),
 				'orderby' => 'ID',
-				'order' => 'DESC',
-				'limit' => 999,
-				'offset' => 0
+				'order' => 'DESC'
 			)
 		);
 
@@ -466,9 +483,7 @@ class Dashboard extends Controller {
 		$settings = get_settings(
 			array(
 				'orderby' => 'ID',
-				'order' => 'ASC',
-				'limit' => 0,
-				'offset' => 0
+				'order' => 'ASC'
 			)
 		);
 
@@ -553,9 +568,7 @@ class Dashboard extends Controller {
 					)
 				),
 				'orderby' => 'ID',
-				'order' => 'ASC',
-				'limit' => 0,
-				'offset' => 0
+				'order' => 'ASC'
 			)
 		);
 
