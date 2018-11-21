@@ -36,7 +36,7 @@
 
 			</div>
 
-			<div class="row">
+			<div class="row row--centered">
 
 				<div class="col col--50 col-tab--75 col-tab--100">
 
@@ -58,7 +58,7 @@
 
 						<hr />
 
-						<h2 class="h6">Blog Overview</h2>
+						<h2 class="h6">Statistics</h2>
 
 						<ul>
 
