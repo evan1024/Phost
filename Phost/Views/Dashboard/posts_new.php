@@ -16,6 +16,8 @@
 
 					<div class="col col--50 text--right">
 
+						<a class="button button--tertiary toolbar-settings-toggle" role="link">Settings</a>
+
 						<button type="submit" class="button button--primary">Create Post</button>
 
 					</div>
@@ -99,7 +101,6 @@
 					<li><button class="toolbar-item toolbar-list" id="toolbar-list" data-syntax="- " aria-label="Add a list"><i class="fas fa-list" aria-hidden="true"></i></button></li>
 					<li><button class="toolbar-item toolbar-link" id="toolbar-link" data-syntax="[]()" aria-label="Add a link"><i class="fas fa-link" aria-hidden="true"></i></button></li>
 					<li><button class="toolbar-item toolbar-code" id="toolbar-code" data-syntax="``" aria-label="Add code"><i class="fas fa-code" aria-hidden="true"></i></button></li>
-					<li><button class="toolbar-item toolbar-settings-toggle" id="toolbar-settings" aria-label="Toggle the editor settings panel"><i class="fas fa-cog" aria-hidden="true"></i></button></li>
 
 				</ul>
 

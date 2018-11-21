@@ -17,7 +17,9 @@
 
 					<div class="col col--66 text--right">
 
-						<a href="<?php echo post_url( $post ); ?>" class="button button--tertiary" target="_blank">View Post</a>
+						<a href="<?php echo post_url( $post ); ?>" class="button button--tertiary" target="_blank">View</a>
+
+						<a class="button button--tertiary toolbar-settings-toggle" role="link">Settings</a>
 
 						<button type="submit" class="button button--primary">Save Post</button>
 
@@ -106,7 +108,6 @@
 					<li><button class="toolbar-item toolbar-list" id="toolbar-list" data-syntax="- " aria-label="Add a list"><i class="fas fa-list" aria-hidden="true"></i></button></li>
 					<li><button class="toolbar-item toolbar-link" id="toolbar-link" data-syntax="[]()" aria-label="Add a link"><i class="fas fa-link" aria-hidden="true"></i></button></li>
 					<li><button class="toolbar-item toolbar-code" id="toolbar-code" data-syntax="``" aria-label="Add code"><i class="fas fa-code" aria-hidden="true"></i></button></li>
-					<li><button class="toolbar-item toolbar-settings-toggle" id="toolbar-settings" aria-label="Toggle the editor settings panel"><i class="fas fa-cog" aria-hidden="true"></i></button></li>
 
 				</ul>
 
