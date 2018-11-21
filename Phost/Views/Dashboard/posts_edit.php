@@ -21,7 +21,7 @@
 
 						<a class="button button--tertiary toolbar-settings-toggle" role="link">Settings</a>
 
-						<button type="submit" class="button button--primary">Save Post</button>
+						<button type="submit" class="button button--primary">Save</button>
 
 					</div>
 
