@@ -8,15 +8,9 @@
 
 				<div class="row row--inline">
 
-					<div class="col col--50">
+					<div class="col col--100">
 
 						<h1 class="no-margin">Settings</h1>
-
-					</div>
-
-					<div class="col col--50 text--right">
-
-						<button type="submit" class="button button--primary">Save Changes</button>
 
 					</div>
 
@@ -130,6 +124,10 @@
 									<option value="<?php echo $timezone; ?>"<?php if ( $timezone == $settings->setting_value ) : ?> selected="selected"<?php endif; ?>><?php echo $timezone; ?></option>
 								<?php endforeach; ?>
 							</select>
+						</fieldset>
+
+						<fieldset>
+							<button type="submit" class="button button--primary">Save Changes</button>
 						</fieldset>
 
 					</div>
