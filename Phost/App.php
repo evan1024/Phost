@@ -169,6 +169,7 @@ final class App {
 		require_once( PHOSTAPP . 'Vendor/PHPMailer/Exception.php' );
 		require_once( PHOSTAPP . 'Vendor/PHPMailer/PHPMailer.php' );
 		require_once( PHOSTAPP . 'Vendor/PHPMailer/SMTP.php' );
+		require_once( PHOSTAPP . 'Vendor/Copydir/Copydir.php' );
 
 	}
 
@@ -487,6 +488,9 @@ final class App {
 
 					// // Stop the instance.
 					$zip->close();
+
+					// Move the update contents to the root.
+					$move_upgrade = Copydir( 'Phost-' . blog_setting( 'update_available' ), PHOSTPATH );
 
 					// Create a settings instance.
 					$settings = new Setting;
