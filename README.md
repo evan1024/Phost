@@ -12,11 +12,15 @@ Phost is very easy and quikc to install. You'll need the following software vers
 
 ## Contribute
 
-Creating issues, submitting pull requests or just chiming in on discussions is always welcome. All development of the project is handled within the GitHub repository.
+Creating issues, submitting pull requests or just chiming in on discussions is always welcome. All development of the project is handled within the GitHub repository. Cheerleading on social media is also cool.
+
+## Security
+
+Be responsible and ***please do not*** post security issues publically. Send an [email](mailto:phostblog@icloud.com) instead.
 
 ## Support
 
-Support can be requested by opening a new issue on [GitHub](https://github.com/danieltj27/Phost/issues). Please include as much detail about your problem as possible. Make sure you check relavant documentation and other resources before asking.
+Support can be requested by opening a new issue on [GitHub](https://github.com/danieltj27/Phost/issues).
 
 ### Copyright & Licence
 
