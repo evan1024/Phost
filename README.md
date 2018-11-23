@@ -24,4 +24,4 @@ Support can be requested by opening a new issue on [GitHub](https://github.com/d
 
 ### Copyright & Licence
 
-Copyright (c) 2018 Daniel James. Phost is licenced under [MIT](https://github.com/danieltj27/Phost/blob/master/LICENCE.md).
+Copyright (c) 2018 Daniel James. [Phost](https://phostblog.com/) is licenced under [MIT](https://github.com/danieltj27/Phost/blob/master/LICENCE.md).

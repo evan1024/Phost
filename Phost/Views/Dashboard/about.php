@@ -110,7 +110,7 @@
 
 					</ul>
 
-					<p>Documentation and support can be found on the <a href="https://phost.app/" target="_blank">Phost</a> website.</p>
+					<p>Documentation and support can be found on the <a href="https://phostblog.com/" target="_blank">Phost</a> website.</p>
 
 				</div>
 

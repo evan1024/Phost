@@ -83,7 +83,7 @@
 
 							<div class="col col--100">
 
-								<p><a href="https://phost.app/" target="_blank">Powered by Phost</a> &mdash; <a href="<?php echo dashboard_url( 'about/' ); ?>">Version <?php echo blog_version(); ?></a></p>
+								<p><a href="https://phostblog.com/" target="_blank">Powered by Phost</a> &mdash; <a href="<?php echo dashboard_url( 'about/' ); ?>">Version <?php echo blog_version(); ?></a></p>
 
 							</div>
 

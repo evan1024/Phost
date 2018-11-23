@@ -94,7 +94,7 @@
 
 					</nav>
 
-					<p class="vanity-link"><a href="https://phost.app">Powered by Phost</a></p>
+					<p class="vanity-link"><a href="https://phostblog.com/" target="_blank">Powered by Phost</a></p>
 
 				</div>
 
