@@ -4,7 +4,7 @@ The little blogging framework making it easier for you to write your story.
 
 ## Installation
 
-Phost is very easy and quikc to install. You'll need the following software versions.
+Phost is very easy and quick to install. You'll need the following software versions.
 
 - PHP 5.6 or later (7.0 is preferred)
 - MySQL 5.6 or later
