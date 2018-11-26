@@ -218,6 +218,13 @@ class Requests {
 	 */
 	public function run_auto_update_checker() {
 
+		// Has the application been installed yet?
+		if ( ! is_app_installed() ) {
+
+			return false;
+
+		}
+
 		// Create a settings instance.
 		$settings = new Setting;
 
