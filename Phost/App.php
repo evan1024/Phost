@@ -432,10 +432,6 @@ final class App {
 	/**
 	 * Run a system update.
 	 * 
-	 * @todo need to ensure the zip archive is extracted to
-	 *       the root directory of the application rather than
-	 *       in a sub folder.
-	 * 
 	 * @since 0.1.0
 	 * 
 	 * @return boolean
