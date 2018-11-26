@@ -370,15 +370,37 @@ final class App {
 		// Create a settings instance.
 		$settings = new Setting;
 
-		// Define the external release API.
-		$api_url = 'https://api.github.com/repos/danieltj27/Phost/releases/latest';
+		// What update branch are we on?
+		if ( 'dev' == blog_setting( 'flag_dev_branch' ) ) {
+
+			// Get the latest release (includes pre-releases like betas).
+			$api_url = 'https://api.github.com/repos/danieltj27/Phost/releases';
+
+		} else {
+
+			// Get the latest stable release.
+			$api_url = 'https://api.github.com/repos/danieltj27/Phost/releases/latest';
+
+		}
 
 		// Find the latest release.
 		$request = new HTTP( $api_url );
 
-		// Get the latest release version number.
-		$latest = ( isset( $request->response[ 'tag_name' ] ) ) ? $request->response[ 'tag_name' ] : false;
-		
+		/**
+		 * Check the branch again because checking for all
+		 * releases returns an array but checking for the latest
+		 * only returns a single instance.
+		 */
+		if ( 'dev' == blog_setting( 'flag_dev_branch' ) ) {
+
+			$latest = ( isset( $request->response[0][ 'tag_name' ] ) ) ? $request->response[0][ 'tag_name' ] : false;
+
+		} else {
+
+			$latest = ( isset( $request->response[ 'tag_name' ] ) ) ? $request->response[ 'tag_name' ] : false;
+
+		}
+
 		// Did we get the latest version number?
 		if ( $latest ) {
 

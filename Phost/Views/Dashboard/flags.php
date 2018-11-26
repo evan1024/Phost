@@ -43,6 +43,16 @@
 					<div class="col col--50 col-tab--75 col-tab--100">
 
 						<fieldset>
+							<label for="flag_dev_branch">Release branch</label>
+							<?php $flags->fetch( 'flag_dev_branch', 'setting_key' ); ?>
+							<select name="flag_dev_branch" id="flag_dev_branch">
+								<option value="stable">Stable (default)</option>
+								<option value="dev"<?php if ( 'dev' == $flags->setting_value ) : ?> selected="selected"<?php endif; ?>>Developer</option>
+							</select>
+							<p class="input-desc">You can change the release branch your blog is on if wish to update to the very latest (<em>and sometimes unstable</em>) version of the software.</p>
+						</fieldset>
+
+						<fieldset>
 							<label for="flag_pass_hash">Hashing algorithm</label>
 							<?php $flags->fetch( 'flag_pass_hash', 'setting_key' ); ?>
 							<select name="flag_pass_hash" id="flag_pass_hash">
