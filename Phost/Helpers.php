@@ -1421,7 +1421,7 @@ function create_path( $path ) {
 	$path = preg_replace( '~-+~', '-', $path );
 
 	// Remove any other characters.
-	$path = sanitise_text( $path, '~[^A-Za-z0-9_[-]]~' );
+	$path = sanitise_text( $path, '~[^A-Za-z0-9-_]~' );
 
 	return $path;
 
