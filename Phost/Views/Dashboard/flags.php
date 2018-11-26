@@ -8,15 +8,9 @@
 
 				<div class="row row--inline">
 
-					<div class="col col--50">
+					<div class="col col--100">
 
 						<h1 class="no-margin">Flags</h1>
-
-					</div>
-
-					<div class="col col--50 text--right">
-
-						<button type="submit" class="button button--primary">Save Changes</button>
 
 					</div>
 
@@ -56,6 +50,10 @@
 								<option value="argon2"<?php if ( 'argon2' == $flags->setting_value ) : ?> selected="selected"<?php endif; ?>>Argon2</option>
 							</select>
 							<p class="input-desc">The default algorithm for password hashing. Requires the Argon2 package to be installed with the servers version of PHP.</p>
+						</fieldset>
+
+						<fieldset>
+							<button type="submit" class="button button--primary">Save Changes</button>
 						</fieldset>
 
 					</div>
