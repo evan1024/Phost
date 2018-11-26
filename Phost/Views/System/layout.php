@@ -28,7 +28,7 @@
 
 	</div>
 
-<script type="text/javascript" src="<?php echo assets_url( 'Js/jquery.min.js' ); ?>"></script>
+<script type="text/javascript" src="<?php echo assets_url( 'Js/Vendor/jquery.min.js' ); ?>"></script>
 <script type="text/javascript" src="<?php echo assets_url( 'Js/scripts.min.js' ); ?>"></script>
 </body>
 </html>
