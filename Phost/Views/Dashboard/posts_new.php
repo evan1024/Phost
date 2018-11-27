@@ -16,7 +16,7 @@
 
 					<div class="col col--50 text--right">
 
-						<a class="button button--tertiary toolbar-settings-toggle" role="link">Settings</a>
+						<a class="button button--tertiary toolbar-settings-toggle" tabindex="0" role="link">Settings</a>
 
 						<button type="submit" class="button button--primary">Create</button>
 
@@ -34,7 +34,7 @@
 
 		<div class="editor__settings">
 
-			<p><i class="fas fa-times" aria-hidden="true"></i> <a class="toolbar-settings-toggle" role="link">Hide editor settings</a></p>
+			<p><i class="fas fa-times" aria-hidden="true"></i> <a class="toolbar-settings-toggle" tabindex="0" role="link">Hide editor settings</a></p>
 
 			<fieldset>
 				<label for="path">Path</label>
