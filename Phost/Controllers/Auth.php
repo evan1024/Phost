@@ -50,7 +50,7 @@ class Auth extends Controller {
 		// Define the controller routes.
 		$this->get( 'auth/', array( $this->class, 'missed_login' ) );
 		$this->get( 'auth/login/', array( $this->class, 'login' ) );
-		$this->get( 'auth/register/', array( $this->class, 'register' ) );
+		$this->get( 'auth/register/', array( $this->class, 'register' ), can_register() );
 		$this->get( 'auth/forgot/', array( $this->class, 'forgot' ) );
 		$this->post( 'auth/forgot/send/', array( $this->class, 'forgot_send' ) );
 		$this->get( 'auth/forgot/reset/:param/', array( $this->class, 'forgot_reset' ) );
@@ -398,14 +398,21 @@ Thank you,<br />The team at " . blog_name() . ".";
 	/**
 	 * Try and register a user.
 	 * 
-	 * Call this function when trying to register a new
-	 * account on the blog.
+	 * Attempts to register a new user account on
+	 * the blog when called.
 	 * 
 	 * @since 0.1.0
 	 * 
 	 * @return boolean True is successful or false on failure.
 	 */
 	public static function try_register_user() {
+
+		// Bail if registration is turned off.
+		if ( ! can_register() ) {
+
+			return false;
+
+		}
 
 		// Bail if the user is already logged in.
 		if ( is_logged_in() ) {
@@ -457,7 +464,7 @@ Thank you,<br />The team at " . blog_name() . ".";
 		$create = $user->create();
 
 		// Was the user created?
-		if ( ! is_int( $create ) ) {
+		if ( false === $create ) {
 
 			return false;
 

@@ -10,14 +10,11 @@
 	<fieldset>
 		<label for="password">Password</label>
 		<input type="password" name="password" id="password" />
+		<p class="input-desc"><a href="<?php echo auth_url( 'forgot/' ); ?>">Forgot your password?</a></p>
 	</fieldset>
 
 	<fieldset>
 		<label for="remember"><input type="checkbox" name="remember" id="remember" /> Remember me</label>
-	</fieldset>
-
-	<fieldset>
-		<a href="<?php echo auth_url( 'forgot/' ); ?>">Forgot your password?</a>
 	</fieldset>
 
 	<fieldset>
