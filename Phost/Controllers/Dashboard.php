@@ -50,10 +50,10 @@ class Dashboard extends Controller {
 		// Define the controller routes.
 		$this->get( 'dashboard/', array( $this->class, 'index' ), is_logged_in() );
 		$this->get( 'dashboard/about/', array( $this->class, 'about' ), is_logged_in() );
-		$this->get( 'dashboard/system/', array( $this->class, 'system' ), is_logged_in() );
+		$this->get( 'dashboard/system/', array( $this->class, 'system' ), is_admin() );
 		$this->post( 'dashboard/system/check-updates/', array( $this->class, 'check_updates' ), is_admin() );
 		$this->post( 'dashboard/system/update-core/', array( $this->class, 'core_update' ), is_admin() );
-		$this->get( 'dashboard/search/', array( $this->class, 'search' ), is_logged_in() );
+		$this->get( 'dashboard/search/', array( $this->class, 'search' ), is_author() );
 		$this->get( 'dashboard/menus/', array( $this->class, 'menus' ), is_admin() );
 		$this->get( 'dashboard/menus/new/', array( $this->class, 'menus_new' ), is_admin() );
 		$this->post( 'dashboard/menus/save/', array( $this->class, 'menus_save' ), is_admin() );
@@ -63,15 +63,15 @@ class Dashboard extends Controller {
 		$this->post( 'dashboard/settings/save/', array( $this->class, 'settings_save' ), is_admin() );
 		$this->get( 'dashboard/flags/', array( $this->class, 'flags' ), is_admin() );
 		$this->post( 'dashboard/flags/save/', array( $this->class, 'flags_save' ), is_admin() );
-		$this->get( 'dashboard/posts/', array( $this->class, 'posts' ), is_logged_in() );
-		$this->get( 'dashboard/posts/new/', array( $this->class, 'posts_new' ), is_logged_in() );
-		$this->post( 'dashboard/posts/save/', array( $this->class, 'posts_save' ), is_logged_in() );
-		$this->get( 'dashboard/posts/edit/:param/', array( $this->class, 'posts_edit' ), is_logged_in() );
-		$this->post( 'dashboard/posts/delete/:param/', array( $this->class, 'posts_delete' ), is_logged_in() );
-		$this->get( 'dashboard/media/', array( $this->class, 'media' ), is_logged_in() );
-		$this->post( 'dashboard/media/upload/', array( $this->class, 'media_upload' ), is_logged_in() );
-		$this->get( 'dashboard/media/details/:param/', array( $this->class, 'media_details' ), is_logged_in() );
-		$this->post( 'dashboard/media/delete/:param/', array( $this->class, 'media_delete' ), is_logged_in() );
+		$this->get( 'dashboard/posts/', array( $this->class, 'posts' ), is_author() );
+		$this->get( 'dashboard/posts/new/', array( $this->class, 'posts_new' ), is_author() );
+		$this->post( 'dashboard/posts/save/', array( $this->class, 'posts_save' ), is_author() );
+		$this->get( 'dashboard/posts/edit/:param/', array( $this->class, 'posts_edit' ), is_author() );
+		$this->post( 'dashboard/posts/delete/:param/', array( $this->class, 'posts_delete' ), is_author() );
+		$this->get( 'dashboard/media/', array( $this->class, 'media' ), is_author() );
+		$this->post( 'dashboard/media/upload/', array( $this->class, 'media_upload' ), is_author() );
+		$this->get( 'dashboard/media/details/:param/', array( $this->class, 'media_details' ), is_author() );
+		$this->post( 'dashboard/media/delete/:param/', array( $this->class, 'media_delete' ), is_author() );
 		$this->get( 'dashboard/users/', array( $this->class, 'users' ), is_admin() );
 		$this->get( 'dashboard/users/new/', array( $this->class, 'users_new' ), is_admin() );
 		$this->post( 'dashboard/users/save/', array( $this->class, 'users_save' ), is_logged_in() );
@@ -953,7 +953,7 @@ class Dashboard extends Controller {
 		$type_filter = ( isset( $_GET[ 'type' ] ) ) ? $_GET[ 'type' ] : '';
 
 		// Can we filter by type?
-		if ( in_array( $type_filter, array( 'user', 'admin' ), true ) ) {
+		if ( in_array( $type_filter, array( 'user', 'author', 'admin' ), true ) ) {
 
 			$where[] = array(
 				'key' => 'type',
@@ -1028,7 +1028,7 @@ class Dashboard extends Controller {
 		// Don't let non admins change a user's type.
 		if ( ! is_me( $user->ID ) && is_admin() ) {
 
-			$user_type = ( isset( $_POST[ 'type' ] ) && 'admin' == $_POST[ 'type' ] ) ? 'admin' : 'user';
+			$user_type = ( isset( $_POST[ 'type' ] ) && in_array( $_POST[ 'type' ], array( 'admin', 'author', 'user' ), true ) ) ? $_POST[ 'type' ] : $user->user_type;
 
 		} else {
 

@@ -22,13 +22,17 @@
 
 				<div class="header__search">
 
-					<form action="<?php echo dashboard_url( 'search/' ); ?>" method="get">
+					<?php if ( is_author() ) : ?>
 
-						<label for="query" class="screen-reader-only">Search</label>
-						<input type="search" name="query" id="query" placeholder="Search for posts..." <?php if ( get_search_query() ) : ?>value="<?php echo get_search_query(); ?>" <?php endif; ?>/>
-						<button type="submit" id="submit" aria-label="Search posts"><i class="fas fa-search" aria-hidden="true"></i></button>
+						<form action="<?php echo dashboard_url( 'search/' ); ?>" method="get">
 
-					</form>
+							<label for="query" class="screen-reader-only">Search</label>
+							<input type="search" name="query" id="query" placeholder="Search for posts..." <?php if ( get_search_query() ) : ?>value="<?php echo get_search_query(); ?>" <?php endif; ?>/>
+							<button type="submit" id="submit" aria-label="Search posts"><i class="fas fa-search" aria-hidden="true"></i></button>
+
+						</form>
+
+					<?php endif; ?>
 
 				</div>
 
@@ -37,10 +41,12 @@
 					<ul>
 
 						<li><a href="<?php echo dashboard_url(); ?>"><i class="fas fa-tachometer-alt" aria-hidden="true"></i> Dashboard</a></li>
-						<li class="spacer"></li>
-						<li><a href="<?php echo dashboard_url( 'posts/new/' ); ?>"><i class="fas fa-plus" aria-hidden="true"></i> New Post</a></li>
-						<li><a href="<?php echo dashboard_url( 'posts/' ); ?>"><i class="fas fa-pencil-alt" aria-hidden="true"></i> Posts</a></li>
-						<li><a href="<?php echo dashboard_url( 'media/' ); ?>"><i class="fas fa-image" aria-hidden="true"></i> Media</a></li>
+						<?php if ( is_author() ) : ?>
+							<li class="spacer"></li>
+							<li><a href="<?php echo dashboard_url( 'posts/new/' ); ?>"><i class="fas fa-plus" aria-hidden="true"></i> New Post</a></li>
+							<li><a href="<?php echo dashboard_url( 'posts/' ); ?>"><i class="fas fa-pencil-alt" aria-hidden="true"></i> Posts</a></li>
+							<li><a href="<?php echo dashboard_url( 'media/' ); ?>"><i class="fas fa-image" aria-hidden="true"></i> Media</a></li>
+						<?php endif; ?>
 						<li class="spacer"></li>
 						<li><a href="<?php echo dashboard_url( 'users/edit/' . my_id() . '/' ); ?>"><i class="fas fa-smile" aria-hidden="true"></i> Profile</a></li>
 						<?php if ( is_admin() ) : ?>

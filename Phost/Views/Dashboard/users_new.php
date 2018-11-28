@@ -42,7 +42,11 @@
 
 					<div class="col col--50 col-tab--75 col-tab--100">
 
-						<p><i class="fas fa-reply" aria-hidden="true"></i> <a href="<?php echo dashboard_url( 'users/' ); ?>">Back to user listings</a></p>
+						<?php if ( is_admin() ) : ?>
+
+							<p><i class="fas fa-reply" aria-hidden="true"></i> <a href="<?php echo dashboard_url( 'users/' ); ?>">Back to user listings</a></p>
+
+						<?php endif; ?>
 
 						<fieldset>
 							<label for="fullname">Full name <span class="required">*</span></label>
@@ -66,9 +70,10 @@
 								<label for="type">User Type</label>
 								<select name="type" id="type">
 									<option value="user">User</option>
+									<option value="author">Author</option>
 									<option value="admin">Admin</option>
 								</select>
-								<p class="input-desc">Admins have permission to do anything. Be careful.</p>
+								<p class="input-desc">Admins can do anything. Authors can write posts.</p>
 							</fieldset>
 
 						<?php endif; ?>

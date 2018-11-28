@@ -54,25 +54,29 @@
 
 						<p>You last logged in on the <abbr title="<?php echo $me->auth_at; ?>"><?php echo date( 'jS F Y, H:i', strtotime( $me->auth_at ) ); ?></abbr>.</p>
 
-						<p>Are you ready to <a href="<?php echo dashboard_url( 'posts/new/' ); ?>">start writing your next story</a>?</p>
+						<?php if ( is_author() ) : ?>
 
-						<hr />
+							<p>Are you ready to <a href="<?php echo dashboard_url( 'posts/new/' ); ?>">start writing your next story</a>?</p>
 
-						<h2 class="h6">Statistics</h2>
+							<hr />
 
-						<ul>
+							<h2 class="h6">Statistics</h2>
 
-							<li><strong><?php echo count( $posts ); ?></strong> posts have been published.</li>
+							<ul>
 
-							<li><strong><?php echo count( $media ); ?></strong> files have been uploaded.</li>
+								<li><strong><?php echo count( $posts ); ?></strong> posts have been published.</li>
 
-							<?php if ( is_admin() ) : ?>
+								<li><strong><?php echo count( $media ); ?></strong> files have been uploaded.</li>
 
-								<li><strong><?php echo count( $users ); ?></strong> users have been created.</li>
+								<?php if ( is_admin() ) : ?>
 
-							<?php endif; ?>
+									<li><strong><?php echo count( $users ); ?></strong> users have been created.</li>
 
-						</ul>
+								<?php endif; ?>
+
+							</ul>
+
+						<?php endif; ?>
 
 					</div>
 

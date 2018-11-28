@@ -1190,6 +1190,48 @@ function is_admin( $user_id = 0 ) {
 }
 
 /**
+ * Check if a user is an author.
+ * 
+ * Checks if the given user id belongs to a user account
+ * that has the type of `author`. This function has a second
+ * optional parameter to perform a strict check. If strict is
+ * not set, admins will return true for this function.
+ * 
+ * @since 0.1.0
+ * 
+ * @param int     $user_id The user id to check.
+ * @param boolean $strict  Strictly check the user type.
+ * 
+ * @return boolean
+ */
+function is_author( $user_id = 0, $strict = false ) {
+
+	// Did we get a valid ID?
+	if ( 0 === $user_id ) {
+
+		// Set to the current user.
+		$user_id = current_user_id();
+
+	}
+
+	// Create a new user instance.
+	$user = new User;
+
+	// Fetch the selected user.
+	$user->fetch( $user_id );
+
+	// Is this user an author (or an admin)?
+	if ( ( false === $strict && in_array( $user->user_type, array( 'author', 'admin' ), true ) ) || ( false !== $strict && 'author' == $user->user_type ) ) {
+
+		return true;
+
+	}
+
+	return false;
+
+}
+
+/**
  * Get the current user object.
  * 
  * The value becomes cached after it's first use but
@@ -1317,7 +1359,8 @@ function is_me( $user_id = 0 ) {
  * a boolean value of true if they have permission or false
  * if the user doesn't.
  * 
- * @todo I need to implement permissions properly.
+ * @todo permissions need to be implemented
+ *       properly before this can be used.
  * 
  * @since 0.1.0
  * 
@@ -1327,30 +1370,6 @@ function is_me( $user_id = 0 ) {
  * @return boolean
  */
 function user_can( $action, $user_id = 0 ) {
-
-	// Force to an int.
-	$user_id = (int) $user_id;
-
-	// Did we get a user id?
-	if ( 0 === $user_id ) {
-
-		// Get the current user id.
-		$user_id = current_user_id();
-
-	}
-
-	// Create a new user instance.
-	$user = new User;
-
-	// Get the user info.
-	$user->fetch( $user_id );
-
-	// Is the user a founder?
-	if ( 'admin' == $user->user_type ) {
-
-		return true;
-
-	}
 
 	return false;
 

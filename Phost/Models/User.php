@@ -270,8 +270,8 @@ class User extends Model {
 		// Filter and trim names and usernames.
 		$this->user_fullname = filter_text( trim( $this->user_fullname ) );
 
-		// Is this user an admin?
-		if ( 'admin' != $this->user_type ) {
+		// What type is this user?
+		if ( ! in_array( $this->user_type, array( 'admin', 'author', 'user' ), true ) ) {
 
 			$this->user_type = 'user';
 
@@ -332,8 +332,8 @@ class User extends Model {
 		// Filter and trim names and usernames.
 		$this->user_fullname = filter_text( trim( $this->user_fullname ) );
 
-		// Is this user an admin?
-		if ( 'admin' != $this->user_type ) {
+		// What type is this user?
+		if ( ! in_array( $this->user_type, array( 'admin', 'author', 'user' ), true ) ) {
 
 			$this->user_type = 'user';
 
