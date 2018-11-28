@@ -24,7 +24,7 @@ function Copydir( $from, $to ) {
 	$directory = opendir( $from );
 
 	// Can we create the source directory?
-	if ( ! file_exists( $to ) && ! mkdir( $to ) ) {
+	if ( ! $directory && ! file_exists( $to ) && ! @mkdir( $to ) ) {
 
 		return false;
 

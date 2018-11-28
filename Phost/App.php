@@ -474,7 +474,7 @@ final class App {
 			$update_package_url = 'https://github.com/danieltj27/Phost/archive/' . blog_setting( 'update_available' ) . '.zip';
 
 			// The path to the local update package.
-			$local_update_package_zip = PHOSTCONTENT . 'UpdatePackage.zip';
+			$local_update_package_zip = PHOSTPATH . 'PhostUpdatePackage.zip';
 
 			// Create new Zip Archive instance.
 			$zip = new ZipArchive();
@@ -483,7 +483,7 @@ final class App {
 			$zip->open( $local_update_package_zip, ZipArchive::CREATE );
 
 			// Add a faux file.
-			$zip->addFromString( 'phost_update' . date( 'YmdHis' ) . '.txt' , '' );
+			$zip->addFromString( 'Phost-' . blog_setting( 'update_available' ) . '_' . date( 'YmdHis' ) . '.txt' , '' );
 
 			// Close the archiver.
 			$zip->close();
@@ -508,7 +508,10 @@ final class App {
 					$zip->close();
 
 					// Move the update contents to the root.
-					$move_upgrade = Copydir( 'Phost-' . blog_setting( 'update_available' ), PHOSTPATH );
+					$move_upgrade = Copydir( PHOSTPATH . 'Phost-' . blog_setting( 'update_available' ), PHOSTPATH );
+
+					// Remove the temporary update directory.
+					unlink( PHOSTPATH . 'Phost-' . blog_setting( 'update_available' ) );
 
 					// Create a settings instance.
 					$settings = new Setting;
