@@ -7,9 +7,9 @@ The little blogging framework making it easier for you to write your story.
 Phost is very easy and quick to install. You'll need the following software versions:
 
 - Make sure to [download the latest version](https://github.com/danieltj27/Phost/releases) from the release archive.
-- PHP 5.6 or later (7.0 is preferred)
+- PHP 5.6 or later (_7.x.x is preferred_)
 - MySQL 5.6 or later
-- Apache server (with mod_rewrite enabled)
+- Apache server (_mod_rewrite is required_)
 
 ## Contribute
 
