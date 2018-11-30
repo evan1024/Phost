@@ -62,6 +62,8 @@ class Dashboard extends Controller {
 		$this->get( 'dashboard/settings/', array( $this->class, 'settings' ), is_admin() );
 		$this->post( 'dashboard/settings/save/', array( $this->class, 'settings_save' ), is_admin() );
 		$this->get( 'dashboard/extensions/', array( $this->class, 'extensions' ), is_admin() );
+		$this->get( 'dashboard/extensions/manage/:param/', array( $this->class, 'extensions_manage' ), is_admin() );
+		$this->post( 'dashboard/extensions/save/', array( $this->class, 'extensions_save' ), is_admin() );
 		$this->get( 'dashboard/flags/', array( $this->class, 'flags' ), is_admin() );
 		$this->post( 'dashboard/flags/save/', array( $this->class, 'flags_save' ), is_admin() );
 		$this->get( 'dashboard/posts/', array( $this->class, 'posts' ), is_author() );
@@ -532,7 +534,7 @@ class Dashboard extends Controller {
 	}
 
 	/**
-	 * Site extensions.
+	 * View all extensions.
 	 * 
 	 * @since 0.1.0
 	 * 
@@ -540,7 +542,117 @@ class Dashboard extends Controller {
 	 */
 	public static function extensions() {
 
-		return self::view( self::$path . 'extensions.php', array( 'title' => 'Extensions &lsaquo; Dashboard' ), true );
+		// Get all extensions.
+		$extensions = get_all_extensions();
+
+		return self::view( self::$path . 'extensions.php', array( 'title' => 'Extensions &lsaquo; Dashboard', 'extensions' => $extensions ), true );
+
+	}
+
+	/**
+	 * Manage an extension.
+	 * 
+	 * @since 0.1.0
+	 * 
+	 * @param array $params Parameters passed in the URL.
+	 * 
+	 * @return mixed
+	 */
+	public static function extensions_manage( $params ) {
+
+		// Get all extensions.
+		$extensions = get_all_extensions();
+
+		// Get the extension domain.
+		$domain = ( isset( $params[':param'] ) ) ? $params[':param'] : 0;
+
+		// Does the extension exist?
+		if ( isset( $extensions[ $domain ] ) ) {
+
+			// Set up the extension data.
+			$extension = $extensions[ $domain ];
+
+		} else {
+
+			return self::redirect( 'system/not-found/' );
+
+		}
+
+		return self::view( self::$path . 'extensions_manage.php', array( 'title' => 'Extension Manager &lsaquo; Dashboard', 'extension' => $extension ), true );
+
+	}
+
+	/**
+	 * Save an extension.
+	 * 
+	 * @since 0.1.0
+	 * 
+	 * @return mixed
+	 */
+	public static function extensions_save() {
+
+		// Get all extensions.
+		$extensions = get_all_extensions();
+
+		// Did we get an extension domain?
+		if ( ! isset( $_POST[ 'domain' ] ) || ! isset( $extensions[ $_POST[ 'domain' ] ] ) ) {
+
+			return self::redirect( 'dashboard/extensions/' );
+
+		}
+
+		// Set up the selected extension.
+		$extension = $extensions[ $_POST[ 'domain' ] ];
+
+		// Create new settings instance.
+		$setting = new Setting;
+
+		// Fetch the settings data.
+		$setting->fetch( 'active_extensions', 'setting_key' );
+
+		// Does the extensions active setting exist?
+		if ( false === $setting->exists( $setting->ID ) ) {
+
+			// It doesn't exist yet so set it up.
+			$setting->setting_key = 'active_extensions';
+			$setting->setting_value = array();
+
+		} else {
+
+			// Convert the HTML entities.
+			$setting->setting_value = unfilter_text( $setting->setting_value );
+
+			// Convert the setting to an array.
+			$setting->setting_value = json_decode( $setting->setting_value, true );
+
+		}
+
+		// Remove it if it exists or add it if it doesn't.
+		if ( in_array( $extension[ 'domain' ], $setting->setting_value, true ) ) {
+
+			// Get the array index.
+			$index = array_search( $extension[ 'domain' ], $setting->setting_value, true );
+
+			// Remove it.
+			unset( $setting->setting_value[ $index ] );
+
+			register_notice( 'extensions_save', 'success', 'The extension has been uninstalled.' );
+
+		} else {
+
+			// Add it.
+			$setting->setting_value[] = $extension[ 'domain' ];
+
+			register_notice( 'extensions_save', 'success', 'The extension has been installed.' );
+
+		}
+
+		// Convert back into JSON.
+		$setting->setting_value = json_encode( $setting->setting_value );
+
+		$setting->save();
+
+		return self::redirect( 'dashboard/extensions/manage/' . $extension[ 'domain' ] . '/' );
 
 	}
 

@@ -36,15 +36,83 @@
 
 			</div>
 
-			<div class="row row--centered">
+			<?php if ( empty( $extensions ) ) : ?>
 
-				<div class="col col--50 col-tab--75 col-tab--100">
+				<div class="row">
 
-					extensions
+					<div class="col col--100">
+
+						<h2 class="h4">No extensions found</h2>
+
+						<p>There aren't any extensions to show you right now.</p>
+
+					</div>
 
 				</div>
 
-			</div>
+			<?php else : ?>
+
+				<div class="row">
+
+					<div class="col col--100">
+
+						<table class="user-list">
+
+							<thead>
+
+								<tr>
+
+									<th>Name</th>
+									<th>Description</th>
+									<th>Author</th>
+									<th>Status</th>
+									<th>Options</th>
+
+								</tr>
+
+							</thead>
+
+							<tbody>
+
+								<?php foreach ( $extensions as $extension ) : ?>
+
+									<tr>
+
+										<td><?php echo $extension[ 'name' ]; ?></td>
+										
+										<td><?php echo $extension[ 'description' ]; ?></td>
+										
+										<td><?php echo $extension[ 'author_name' ]; ?></td>
+										
+										<td>
+											
+											<?php if ( is_extension_installed( $extension[ 'domain' ] ) ) : ?>
+
+												<i class="fas fa-check" aria-label="Extension is installed"></i>
+
+											<?php else : ?>
+
+												<i class="fas fa-times" aria-label="Extension is not installed"></i>
+
+											<?php endif; ?>
+
+										</td>
+										
+										<td><a href="<?php echo dashboard_url( 'extensions/manage/' . $extension[ 'domain' ] . '/' ); ?>" class="button button--secondary button--small">Manage</a></td>
+
+									</tr>
+
+								<?php endforeach; ?>
+
+							</tbody>
+
+						</table>
+
+					</div>
+
+				</div>
+
+			<?php endif; ?>
 
 		</div>
 

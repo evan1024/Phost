@@ -100,6 +100,9 @@ final class App {
 		// Check the app is installed.
 		$this->check_app_installed();
 
+		// Initialise extensions.
+		$this->prepare_extensions();
+
 		// Initialise the theme.
 		$this->prepare_theme();
 
@@ -293,6 +296,29 @@ final class App {
 		}
 
 		return true;
+
+	}
+
+	/**
+	 * Prepare all installed extensions.
+	 * 
+	 * @since 0.1.0
+	 * 
+	 * @access private
+	 * 
+	 * @return boolean
+	 */
+	private function prepare_extensions() {
+
+		if ( is_app_installed() ) {
+
+			return true;
+
+		} else {
+
+			return false;
+
+		}
 
 	}
 

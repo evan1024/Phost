@@ -752,6 +752,25 @@ function blog_version() {
 }
 
 /**
+ * Returns all active extensions.
+ * 
+ * @since 0.1.0
+ * 
+ * @return array
+ */
+function active_extensions() {
+
+	// Get the active extensions setting.
+	$active_extensions = blog_setting( 'active_extensions' );
+
+	// Convert to an array and decode it.
+	$active_extensions = json_decode( unfilter_text( $active_extensions ), true );
+
+	return $active_extensions;
+
+}
+
+/**
  * Get the requested path.
  * 
  * Returns a sanitised version of the requested
@@ -817,6 +836,125 @@ function load_title( $title = '', $raw = false ) {
 }
 
 /**
+ * Get all extensions.
+ * 
+ * @since 0.1.0
+ * 
+ * @return boolean|array
+ */
+function get_all_extensions() {
+
+	// Get all extension directories.
+	$dirs = array_diff( scandir( PHOSTEXTEND ), array( '.', '..', '.svn', '.git', '.DS_Store', 'Thumbs.db' ) );
+
+	// Did we get anything?
+	if ( empty( $dirs ) ) {
+
+		return false;
+
+	}
+
+	$extensions = array();
+
+	// Loop through each directory as a extension.
+	foreach ( $dirs as $dir ) {
+
+		// Does this directory have a JSON file?
+		if ( ! file_exists( PHOSTEXTEND . $dir . '/extension.json' ) ) {
+
+			continue;
+
+		}
+
+		// Get the extension JSON details.
+		$data = file_get_contents( PHOSTEXTEND . $dir . '/extension.json' );
+
+		// Convert to an array.
+		$data = json_decode( $data, true );
+
+		// Does the extension domain match the settings value?
+		if ( ! isset( $data[ 0 ][ 'domain' ] ) ) {
+
+			continue;
+
+		}
+
+		// Does the extension already exist?
+		if ( isset( $extensions[ $data[ 0 ][ 'domain' ] ] ) ) {
+
+			continue;
+
+		}
+
+		// Save the extension data.
+		$extensions[ $data[ 0 ][ 'domain' ] ] = array(
+			'name' => isset( $data[ 0 ][ 'name' ] ) ? $data[ 0 ][ 'name' ] : $data[ 0 ][ 'domain' ],
+			'description' => isset( $data[ 0 ][ 'description' ] ) ? $data[ 0 ][ 'description' ] : '',
+			'domain' => $data[ 0 ][ 'domain' ],
+			'function_path' => isset( $data[ 0 ][ 'function_path' ] ) ? $data[ 0 ][ 'function_path' ] : '',
+			'version' => isset( $data[ 0 ][ 'version' ] ) ? $data[ 0 ][ 'version' ] : '',
+			'author_name' => isset( $data[ 0 ][ 'author_name' ] ) ? $data[ 0 ][ 'author_name' ] : '',
+			'author_url' => isset( $data[ 0 ][ 'author_url' ] ) ? $data[ 0 ][ 'author_url' ] : '',
+			'licence_name' => isset( $data[ 0 ][ 'licence_name' ] ) ? $data[ 0 ][ 'licence_name' ] : '',
+			'licence_url' => isset( $data[ 0 ][ 'licence_url' ] ) ? $data[ 0 ][ 'licence_url' ] : ''
+		);
+
+	}
+
+	// Did we get any extensions?
+	if ( empty( $extensions ) ) {
+
+		return false;
+
+	}
+
+	return $extensions;
+
+}
+
+/**
+ * Check if an extension is installed.
+ * 
+ * @since 0.1.0
+ * 
+ * @param string $extension The domain of an extension.
+ * 
+ * @return boolean
+ */
+function is_extension_installed( $extension = '' ) {
+
+	// Get all extensions.
+	$extensions = get_all_extensions();
+
+	// Does the extension exist?
+	if ( ! isset( $extensions[ $extension ] ) ) {
+
+		return false;
+
+	}
+
+	// Get the extension settings data.
+	$active_extensions = active_extensions();
+
+	// Do we have any extensions?
+	if ( empty( $active_extensions ) ) {
+
+		return false;
+
+	}
+
+	// Is the extension installed?
+	if ( in_array( $extension, $active_extensions, true ) ) {
+
+		return true;
+
+	}
+
+	return false;
+
+}
+
+/**
  * Get all installed themes.
  * 
  * @since 0.1.0
@@ -826,7 +964,7 @@ function load_title( $title = '', $raw = false ) {
 function get_all_themes() {
 
 	// Get all theme directories.
-	$dirs = array_diff( scandir( PHOSTTHEMES ), array( '.', '..', '.svn', '.git', '.DS_Store' ) );
+	$dirs = array_diff( scandir( PHOSTTHEMES ), array( '.', '..', '.svn', '.git', '.DS_Store', 'Thumbs.db' ) );
 
 	// Did we get anything?
 	if ( empty( $dirs ) ) {

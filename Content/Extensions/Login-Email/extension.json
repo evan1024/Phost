@@ -1,0 +1,13 @@
+[
+	{
+		"name": "Login Email",
+		"description": "Sends you an email everytime you log in. #security",
+		"domain": "Login-Email",
+		"function_path": "Functions",
+		"version": "1.0.0",
+		"author_name": "Daniel James",
+		"author_url": "https://danieltj.uk/",
+		"licence_name": "MIT",
+		"licence_url": "https://opensource.org/licenses/MIT"
+	}
+]
