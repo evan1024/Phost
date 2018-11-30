@@ -52,6 +52,7 @@
 						<?php if ( is_admin() ) : ?>
 							<li><a href="<?php echo dashboard_url( 'users/' ); ?>"><i class="fas fa-user-friends" aria-hidden="true"></i> Users</a></li>
 							<li><a href="<?php echo dashboard_url( 'menus/' ); ?>"><i class="fas fa-list-ol" aria-hidden="true"></i> Menus</a></li>
+							<li><a href="<?php echo dashboard_url( 'extensions/' ); ?>"><i class="fas fa-puzzle-piece" aria-hidden="true"></i> Extensions</a></li>
 							<li><a href="<?php echo dashboard_url( 'settings/' ); ?>"><i class="fas fa-wrench" aria-hidden="true"></i> Settings</a></li>
 							<li class="spacer"></li>
 							<li><a href="<?php echo dashboard_url( 'system/' ); ?>"><i class="fas fa-university" aria-hidden="true"></i> System</a></li>

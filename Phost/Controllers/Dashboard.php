@@ -61,6 +61,7 @@ class Dashboard extends Controller {
 		$this->post( 'dashboard/menus/delete/:param/', array( $this->class, 'menus_delete' ), is_admin() );
 		$this->get( 'dashboard/settings/', array( $this->class, 'settings' ), is_admin() );
 		$this->post( 'dashboard/settings/save/', array( $this->class, 'settings_save' ), is_admin() );
+		$this->get( 'dashboard/extensions/', array( $this->class, 'extensions' ), is_admin() );
 		$this->get( 'dashboard/flags/', array( $this->class, 'flags' ), is_admin() );
 		$this->post( 'dashboard/flags/save/', array( $this->class, 'flags_save' ), is_admin() );
 		$this->get( 'dashboard/posts/', array( $this->class, 'posts' ), is_author() );
@@ -527,6 +528,19 @@ class Dashboard extends Controller {
 		register_notice( 'settings_save', 'success', 'The settings have been saved.' );
 
 		return self::redirect( 'dashboard/settings/' );
+
+	}
+
+	/**
+	 * Site extensions.
+	 * 
+	 * @since 0.1.0
+	 * 
+	 * @return mixed
+	 */
+	public static function extensions() {
+
+		return self::view( self::$path . 'extensions.php', array( 'title' => 'Extensions &lsaquo; Dashboard' ), true );
 
 	}
 
