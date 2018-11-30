@@ -27,7 +27,7 @@ final class App {
 	 * 
 	 * @var string
 	 */
-	public $app_version = '0.1.0-beta3';
+	public $app_version = '0.1.0-beta4';
 
 	/**
 	 * Define the database version.
