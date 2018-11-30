@@ -88,11 +88,11 @@
 											
 											<?php if ( is_extension_installed( $extension[ 'domain' ] ) ) : ?>
 
-												<i class="fas fa-check" aria-label="Extension is installed"></i>
+												Installed
 
 											<?php else : ?>
 
-												<i class="fas fa-times" aria-label="Extension is not installed"></i>
+												Not installed
 
 											<?php endif; ?>
 

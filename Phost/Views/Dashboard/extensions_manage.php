@@ -50,13 +50,29 @@
 
 				<div class="col col--100">
 
-					<h2 class="h6"><?php echo $extension[ 'name' ]; ?></h2>
+					<h2 class="h4"><?php echo $extension[ 'name' ]; ?></h2>
 
 					<p><?php echo $extension[ 'description' ]; ?></p>
 
 					<hr />
 
 					<ul>
+
+						<li>
+
+							<strong>Status:</strong>
+
+							<?php if ( is_extension_installed( $extension[ 'domain' ] ) ) : ?>
+
+								Installed
+
+							<?php else : ?>
+
+								Not installed
+
+							<?php endif; ?>
+
+						</li>
 
 						<li><strong>Version:</strong> <?php echo $extension[ 'version' ]; ?></li>
 
@@ -74,11 +90,11 @@
 
 						<?php if ( is_extension_installed( $extension[ 'domain' ] ) ) : ?>
 
-							<button type="submit" class="button button--warning">Uninstall Extension</button>
+							<button type="submit" class="button button--warning">Uninstall</button>
 
 						<?php else : ?>
 
-							<button type="submit" class="button button--primary">Install Extension</button>
+							<button type="submit" class="button button--primary">Install</button>
 
 						<?php endif; ?>
 
