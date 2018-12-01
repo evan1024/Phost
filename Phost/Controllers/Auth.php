@@ -578,6 +578,9 @@ Thank you,<br />The team at " . blog_name() . ".";
 
 		}
 
+		// Fire the logout event.
+		do_event( 'core/logout', array( 'user' => current_user() ) );
+
 		// Reset the browser cookie.
 		setcookie( AUTH_COOKIE, '', time() - DAY_IN_SECONDS, '/', blog_domain(), is_secure(), true );
 

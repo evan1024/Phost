@@ -636,12 +636,18 @@ class Dashboard extends Controller {
 			// Remove it.
 			unset( $setting->setting_value[ $index ] );
 
+			// Uninstall the extension.
+			do_event( $extension[ 'domain' ] . '/uninstall', array( 'extension' => $extension ) );
+
 			register_notice( 'extensions_save', 'success', 'The extension has been uninstalled.' );
 
 		} else {
 
 			// Add it.
 			$setting->setting_value[] = $extension[ 'domain' ];
+
+			// Install the extension.
+			do_event( $extension[ 'domain' ] . '/install', array( 'extension' => $extension ) );
 
 			register_notice( 'extensions_save', 'success', 'The extension has been installed.' );
 
