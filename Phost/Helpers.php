@@ -860,6 +860,13 @@ function do_event( $event = '', $args = array() ) {
 
 	global $_event_listeners;
 
+	// Bail if safe mode is on.
+	if ( 'on' == blog_setting( 'flag_ext_safe' ) ) {
+
+		return false;
+
+	}
+
 	// Do we have any listeners?
 	if ( ! isset( $_event_listeners[ $event ] ) ) {
 

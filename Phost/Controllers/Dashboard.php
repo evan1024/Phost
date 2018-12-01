@@ -542,6 +542,13 @@ class Dashboard extends Controller {
 	 */
 	public static function extensions() {
 
+		// Set a notice of safe mode is on.
+		if ( 'on' == blog_setting( 'flag_ext_safe' ) ) {
+
+			register_notice( 'extensions', 'info', 'Extensions will not be loaded as safe mode is enabled.', false, true );
+
+		}
+
 		// Get all extensions.
 		$extensions = get_all_extensions();
 
@@ -559,6 +566,13 @@ class Dashboard extends Controller {
 	 * @return mixed
 	 */
 	public static function extensions_manage( $params ) {
+
+		// Set a notice of safe mode is on.
+		if ( 'on' == blog_setting( 'flag_ext_safe' ) ) {
+
+			register_notice( 'extensions_manage', 'info', 'Extensions will not be loaded as safe mode is enabled.', false, true );
+
+		}
 
 		// Get all extensions.
 		$extensions = get_all_extensions();

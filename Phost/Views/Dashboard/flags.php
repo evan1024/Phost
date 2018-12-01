@@ -63,6 +63,16 @@
 						</fieldset>
 
 						<fieldset>
+							<label for="flag_ext_safe">Extension safe mode</label>
+							<?php $flags->fetch( 'flag_ext_safe', 'setting_key' ); ?>
+							<select name="flag_ext_safe" id="flag_ext_safe">
+								<option value="off">Off (default)</option>
+								<option value="on"<?php if ( 'on' == $flags->setting_value ) : ?> selected="selected"<?php endif; ?>>On</option>
+							</select>
+							<p class="input-desc">Extension safe mode lets the system load without any extensions being activated in the process.</p>
+						</fieldset>
+
+						<fieldset>
 							<button type="submit" class="button button--primary">Save Changes</button>
 						</fieldset>
 

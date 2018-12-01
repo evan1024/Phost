@@ -316,6 +316,13 @@ final class App {
 
 		}
 
+		// Are we in safe mode?
+		if ( 'on' == blog_setting( 'flag_ext_safe' ) ) {
+
+			return false;
+
+		}
+
 		// Get all extensions.
 		$extensions = get_all_extensions();
 

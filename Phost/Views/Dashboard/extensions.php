@@ -86,7 +86,7 @@
 										
 										<td>
 											
-											<?php if ( is_extension_installed( $extension[ 'domain' ] ) ) : ?>
+											<?php if ( is_extension_installed( $extension[ 'domain' ] ) && 'on' != blog_setting( 'flag_ext_safe' ) ) : ?>
 
 												Active
 

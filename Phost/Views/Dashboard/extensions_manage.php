@@ -58,7 +58,7 @@
 
 					<ul>
 
-						<li><strong>Status:</strong> <?php if ( is_extension_installed( $extension[ 'domain' ] ) ) : ?>Active<?php else : ?>Inactive<?php endif; ?></li>
+						<li><strong>Status:</strong> <?php if ( is_extension_installed( $extension[ 'domain' ] ) && 'on' != blog_setting( 'flag_ext_safe' ) ) : ?>Active<?php else : ?>Inactive<?php endif; ?></li>
 
 						<li><strong>Version:</strong> <?php echo $extension[ 'version' ]; ?></li>
 
