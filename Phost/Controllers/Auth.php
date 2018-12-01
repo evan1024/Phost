@@ -548,6 +548,9 @@ Thank you,<br />The team at " . blog_name() . ".";
 		// Set the browser cookie.
 		setcookie( AUTH_COOKIE, $hash, $remember, '/', blog_domain(), is_secure(), true );
 
+		// Fire the login event.
+		do_event( 'core/login', array( 'user_id' => $id, 'user_email' => $email ) );
+
 		return true;
 
 	}

@@ -88,11 +88,11 @@
 											
 											<?php if ( is_extension_installed( $extension[ 'domain' ] ) ) : ?>
 
-												Installed
+												Active
 
 											<?php else : ?>
 
-												Not installed
+												Inactive
 
 											<?php endif; ?>
 

@@ -119,6 +119,17 @@ $_post_types = array();
 $_notices = array();
 
 /**
+ * The extension event listeners.
+ * 
+ * @since 0.1.0
+ * 
+ * @access private
+ * 
+ * @var array
+ */
+$_event_listeners = array();
+
+/**
  * The currently active theme.
  * 
  * @since 0.1.0
@@ -832,6 +843,84 @@ function load_title( $title = '', $raw = false ) {
 	}
 
 	return $title . ' &mdash; ' . blog_name();
+
+}
+
+/**
+ * Fires a callback for event listeners.
+ * 
+ * @since 0.1.0
+ * 
+ * @param string $event The name of the event.
+ * @param array  $args  The array of event arguments.
+ * 
+ * @return mixed
+ */
+function do_event( $event = '', $args = array() ) {
+
+	global $_event_listeners;
+
+	// Do we have any listeners?
+	if ( ! isset( $_event_listeners[ $event ] ) ) {
+
+		return false;
+
+	}
+
+	// Do we have any registered events?
+	if ( empty( $_event_listeners[ $event ] ) ) {
+
+		return false;
+
+	}
+
+	// Loop through each callback listener.
+	foreach ( $_event_listeners[ $event ] as $listener ) {
+
+		// Extract the arguments.
+		extract( $args );
+
+		// Perform the callback.
+		call_user_func_array( $listener, $args );
+
+	}
+
+	return true;
+
+}
+
+/**
+ * Adds a listener to an event.
+ * 
+ * @since 0.1.0
+ * 
+ * @param string $event    The name of the event to callback.
+ * @param array  $callback The class/function to run as a callback.
+ * 
+ * @return boolean
+ */
+function add_listener( $event = '', $callback = array() ) {
+
+	global $_event_listeners;
+
+	// Did we get a valid event name?
+	if ( '' == $event ) {
+
+		return false;
+
+	}
+
+	// Can we perform a callback?
+	if ( ! is_callable( $callback ) ) {
+
+		return false;
+
+	}
+
+	// Add the event listener.
+	$_event_listeners[ $event ][] = $callback;
+
+	return true;
 
 }
 

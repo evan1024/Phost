@@ -310,15 +310,40 @@ final class App {
 	 */
 	private function prepare_extensions() {
 
-		if ( is_app_installed() ) {
-
-			return true;
-
-		} else {
+		if ( ! is_app_installed() ) {
 
 			return false;
 
 		}
+
+		// Get all extensions.
+		$extensions = get_all_extensions();
+
+		// Get all activated extensions.
+		$active_extensions = active_extensions();
+
+		// Do we have any active?
+		if ( ! empty( $active_extensions ) ) {
+
+			// Loop through and include all active listeners.
+			foreach ( $active_extensions as $extension ) {
+
+				// Create the path to the extension.
+				$ext_path = PHOSTEXTEND . $extension . '/' . trim( $extensions[ $extension ][ 'function_path' ], '/' ) . '/' . $extension . '.php';
+
+				// Check the core extension file exists.
+				if ( file_exists( $ext_path ) ) {
+
+					// Include the extension file.
+					require_once( $ext_path );
+
+				}
+
+			}
+
+		}
+
+		return true;
 
 	}
 

@@ -58,21 +58,7 @@
 
 					<ul>
 
-						<li>
-
-							<strong>Status:</strong>
-
-							<?php if ( is_extension_installed( $extension[ 'domain' ] ) ) : ?>
-
-								Installed
-
-							<?php else : ?>
-
-								Not installed
-
-							<?php endif; ?>
-
-						</li>
+						<li><strong>Status:</strong> <?php if ( is_extension_installed( $extension[ 'domain' ] ) ) : ?>Active<?php else : ?>Inactive<?php endif; ?></li>
 
 						<li><strong>Version:</strong> <?php echo $extension[ 'version' ]; ?></li>
 
