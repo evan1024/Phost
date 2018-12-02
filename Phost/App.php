@@ -78,7 +78,6 @@ final class App {
 	 * @return void
 	 */
 	public function init() {
-
 		// Start a new session.
 		session_start();
 
@@ -275,6 +274,9 @@ final class App {
 				// Set the current HTTP.
 				$proto = ( isset( $_SERVER[ 'HTTP_X_FORWARDED_PROTO' ] ) ) ? $_SERVER[ 'HTTP_X_FORWARDED_PROTO' ] : $_SERVER[ 'REQUEST_SCHEME' ];
 
+				// If this is an actual site, we want to set the current HTTP. If it's localhost, we want to ignore it.
+				$prefix = ( isset( $proto ) ) ? $proto . '://' . $domain : '';
+
 				/**
 				 * Build the final URL that we need to redirect the
 				 * user to. I know, this is probably less than ideal
@@ -282,7 +284,8 @@ final class App {
 				 * process so the user needs redirecting forcefully in
 				 * a very manual way.
 				 */
-				$url = $proto . '://' . $domain . '/system/install/';
+				
+				$url = $prefix . '/system/install/';
 
 				// Redirect the user to the installer.
 				header( 'Location: ' . $url );
