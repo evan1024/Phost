@@ -341,16 +341,22 @@ function home_url( $path = '', $cached = true ) {
 		// Should we use HTTPS?
 		if ( is_secure() ) {
 
-			$protocol = 'https';
+			$protocol = 'https://';
 
-		} else {
+		} elseif ( get_request_protocol() !== null ){
 
-			$protocol = 'http';
+			$protocol = 'http://';
+			
+		} else { //we are in localhost and home_url can be referred to as just '/'
 
+			$protocol = '';
+			$url = '';
+			
 		}
 
 		// Build the URL and cache it.
-		$_home_url = $protocol . '://' . $url . '/';
+
+		$_home_url = $protocol . $url . '/';
 
 	}
 
@@ -479,7 +485,7 @@ function api_url( $path = '' ) {
  */
 function assets_url( $path = '' ) {
 
-	return home_url( 'Phost/Assets/' . $path );
+	return home_url( 'Phost/Assets/' . $path , false);
 
 }
 
@@ -1851,6 +1857,19 @@ function get_tags( $opts = array(), $set_pages = false ) {
 
 	return $tags;
 
+}
+
+/**
+ * Get current request's protocol (HTTP, HTTPS or null for localhost)
+ * 
+ * @uses Query
+ * 
+ * @since 0.1.0
+ * 
+ * @return string
+ */
+function get_request_protocol() {
+	return ( isset( $_SERVER[ 'HTTP_X_FORWARDED_PROTO' ] ) ) ? $_SERVER[ 'HTTP_X_FORWARDED_PROTO' ] : $_SERVER[ 'REQUEST_SCHEME' ];
 }
 
 /**
