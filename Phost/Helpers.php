@@ -351,7 +351,7 @@ function home_url( $path = '', $cached = true ) {
 
 			$protocol = '';
 			$url = '';
-			
+
 		}
 
 		// Build the URL and cache it.
@@ -485,7 +485,7 @@ function api_url( $path = '' ) {
  */
 function assets_url( $path = '' ) {
 
-	return home_url( 'Phost/Assets/' . $path , false);
+	return home_url( 'Phost/Assets/' . $path );
 
 }
 
