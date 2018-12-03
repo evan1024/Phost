@@ -1862,8 +1862,6 @@ function get_tags( $opts = array(), $set_pages = false ) {
 /**
  * Get current request's protocol (HTTP, HTTPS or null for localhost)
  * 
- * @uses Query
- * 
  * @since 0.1.0
  * 
  * @return string
